@@ -38,5 +38,11 @@ return [
         'url' => env('MOODLE_URL'),
         'token' => env('MOODLE_TOKEN'),
     ],
+    'clerk' => [
+        'frontend_api' => env('CLERK_FRONTEND_API'),
+        'backend_api' => env('CLERK_BACKEND_API'),
+        'jwks_url' => env('CLERK_JWKS_URL'),
+        'secret_key' => env('CLERK_SECRET_KEY'),
+    ],
 
 ];

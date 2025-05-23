@@ -12,8 +12,7 @@ Route::get('/user', function (Request $request) {
 
 
 Route::post('/users', [ClerkUserController::class,'register']);
-Route::get('/users', [ClerkUserController::class, 'getAllUsers']);
-Route::get('/users/{id}', [ClerkUserController::class,'getUserById']);
 Route::middleware(['clerk.auth'])->group(function () {
-
+    Route::get('/users', [ClerkUserController::class, 'getAllUsers']);
+    Route::get('/users/{id}', [ClerkUserController::class,'getUserById']);
 });

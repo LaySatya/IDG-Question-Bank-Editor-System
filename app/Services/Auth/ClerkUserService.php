@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Services\Auth;
-
 use Illuminate\Support\Facades\Http;
 
 class ClerkUserService
@@ -10,7 +9,7 @@ class ClerkUserService
 
     protected function clerkRequest()
 {
-    \Log::info('CLERK_SECRET_KEY', ['key' => config('services.clerk.secret_key')]);
+    // \Log::info('CLERK_SECRET_KEY', ['key' => config('services.clerk.secret_key')]);
     return Http::withToken(config('services.clerk.secret_key'));
 }
     public function registerUser(array $data)

@@ -17,11 +17,15 @@ class ClerkAuthMiddleware
         if (empty($token)) {
             return response()->json(['error' => 'Token missing'], 401);
         }
+        $url = config('services.clerk.jwks_url');
+
+        if (empty($url)) {
+            return response()->json(['error' => 'Clerk JWKS URL is not configured'], 500);
+        }
 
         try {
             // Get Clerk's JWKS URL from environment
-            $jwkUrl = env('CLERK_JWKS_URL');
-            $jwkSet = json_decode(file_get_contents($jwkUrl), true);
+            $jwkSet = json_decode(file_get_contents($url), true);
 
             // Parse keys and decode the JWT token
             $keys = JWK::parseKeySet($jwkSet);
@@ -30,9 +34,8 @@ class ClerkAuthMiddleware
             // Attach authenticated user info to the request
             $request->merge([
                 'user' => [
-                    'id'    => $decoded->sub,
+                    'id' => $decoded->sub,
                     'email_address' => $decoded->email_address ?? null,
-                    
                 ],
             ]);
         } catch (Exception $e) {

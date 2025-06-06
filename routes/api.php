@@ -3,29 +3,18 @@
 use App\Http\Controllers\Auth\ClerkUserController;
 use App\Http\Controllers\Auth\MoodleUserController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Moodle\MoodleQuestionController;
-use Illuminate\Session\Middleware\StartSession;
+use App\Http\Controllers\Moodle\Questions\MoodleGetQuestionController;
+
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
 // })->middleware('auth:sanctum');
 
-// Set question status by ID
-Route::post('/questions/status', [MoodleQuestionController::class, 'setQuestionStatusById']);
 
-// Show all categories
-Route::get('/questions/categories', [MoodleQuestionController::class, 'showCategories']);
-
-// Get courses by fields
-Route::get('/questions/courses', [MoodleQuestionController::class, 'showCoursesByFields']);
-
-
-
-
-
-Route::middleware([StartSession::class, 'moodle.token'])->group(function () {
-    // Protected routes here
-    Route::get('questions/user', [MoodleQuestionController::class, 'showUserByField']);
+Route::middleware(['moodle.token'])->group(function () {
+    // Route::get('questions/user', [MoodleGetQuestionController::class, 'showUserByField']);
+    Route::get('questions', [MoodleGetQuestionController::class, 'showAllQuestions']);
+    Route::get('questions/pagination', [MoodleGetQuestionController::class, 'showQuestionPaginations']);
 });
 
 Route::post('/user', [MoodleUserController::class, 'login']);

@@ -48,4 +48,13 @@ class MoodleGetQuestionService extends MoodleBaseService
         ]);
         return $this->sendRequest($params);
     }
+
+    // Get question by id from moodle
+    public function getQuestionById(int $questionId){
+        $params = array_merge($this->getBaseParams(), [
+            'wsfunction' => 'local_idgqbank_get_question_by_questionid',
+            'questionid' => $questionId,
+        ]);
+        return $this->sendRequest($params);
+    }
 }

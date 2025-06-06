@@ -24,12 +24,14 @@ Route::middleware(['moodle.token'])->group(function () {
     // Get all question categories
     Route::get('questions/categories', [MoodleGetQuestionCategoryController::class, 'showAllQuestionCategories']);
 
+    // Get question by question id
+    Route::get('questions/question', [MoodleGetQuestionController::class, 'showQuestionById']);
 
     // Get all users by role
     Route::get('/user', [MoodleUserController::class, 'showUsersByRole']);
 
     // Get user by username
-    Route::get('/user-by-username', [MoodleUserController::class, 'showUserByUsername']);
+    Route::get('user/user-by-username', [MoodleUserController::class, 'showUserByUsername']);
 
 });
 

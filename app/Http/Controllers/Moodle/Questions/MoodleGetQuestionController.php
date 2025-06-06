@@ -78,4 +78,24 @@ class MoodleGetQuestionController extends Controller
             ], 500);
         }
     }
+
+    // Show question by question id
+    public function showQuestionById(Request $request){
+        try {
+            $questionId = $request->input('questionid');
+            if (!$questionId) {
+                return response()->json(['error' => 'Question ID is required'], 400);
+            }
+
+            $question = $this->moodleGetQuestionService->getQuestionById($questionId);
+            return response()->json($question);
+
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => 'Server error',
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ], 500);
+        }
+    }
 }

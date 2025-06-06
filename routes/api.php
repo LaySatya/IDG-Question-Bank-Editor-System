@@ -16,8 +16,10 @@ Route::middleware(['moodle.token'])->group(function () {
     Route::get('questions', [MoodleGetQuestionController::class, 'showAllQuestions']);
 
     // Get paginated questions
-    Route::get('questions/pagination', [MoodleGetQuestionController::class, 'showQuestionPaginations']);
+    Route::get('questions/pagination', [MoodleGetQuestionController::class, 'showAllQuestionPaginations']);
 
+    // Get paginated questions with category
+    Route::get('questions/pagination/category', [MoodleGetQuestionController::class, 'showPaginationQuestionsByCategory']);
 
     // Get all question categories
     Route::get('questions/categories', [MoodleGetQuestionCategoryController::class, 'showAllQuestionCategories']);

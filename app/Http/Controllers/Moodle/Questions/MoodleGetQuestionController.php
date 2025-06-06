@@ -37,13 +37,34 @@ class MoodleGetQuestionController extends Controller
     }
 
     // Show paginated questions
-    public function showQuestionPaginations(Request $request)
+    public function showAllQuestionPaginations(Request $request)
     {
         try {
             $page = $request->input('page', 1);
             $perPage = $request->input('per_page', 10);
             // Paginate the questions
             $paginatedQuestions = $this->moodleGetQuestionService->getPaginatedQuestions($page, $perPage);
+
+            return response()->json($paginatedQuestions);
+
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => 'Server error',
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ], 500);
+        }
+    }
+
+    public function showPaginationQuestionsByCategory(Request $request)
+    {
+        try {
+            $categoryId = $request->input('categoryid');
+            $page = $request->input('page', 1);
+            $perPage = $request->input('per_page', 10);
+
+            // Paginate the questions with category
+            $paginatedQuestions = $this->moodleGetQuestionService->getPaginationQuestionsByCategory($categoryId, $page, $perPage);
 
             return response()->json($paginatedQuestions);
 

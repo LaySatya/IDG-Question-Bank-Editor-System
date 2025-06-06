@@ -37,4 +37,15 @@ class MoodleUserService extends MoodleBaseService
         ]);
         return $this->sendRequest($params);
     }
+
+    // Get user by fields
+    public function getUserByUsername(string $username)
+    {
+        $params = array_merge($this->getBaseParams(), [
+            'wsfunction' => 'core_user_get_users_by_field',
+            'field' => 'username',
+            'values[0]'=> $username,
+        ]);
+        return $this->sendRequest($params);
+    }
 }

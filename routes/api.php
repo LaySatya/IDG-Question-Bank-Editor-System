@@ -28,6 +28,9 @@ Route::middleware(['moodle.token'])->group(function () {
     // Get all users by role
     Route::get('/user', [MoodleUserController::class, 'showUsersByRole']);
 
+    // Get user by username
+    Route::get('/user-by-username', [MoodleUserController::class, 'showUserByUsername']);
+
 });
 
 Route::post('/user', [MoodleUserController::class, 'login']);

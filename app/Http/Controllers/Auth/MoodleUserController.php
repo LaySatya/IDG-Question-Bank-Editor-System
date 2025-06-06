@@ -68,4 +68,23 @@ class MoodleUserController extends Controller
         }
     }
 
+    // Show user by username
+    public function showUserByUsername(Request $request, MoodleUserService $moodleUserService){
+        try {
+            $username = $request->query(key: 'username');
+            if (!$username) {
+                return response()->json(['error' => 'Username is required'], 400);
+            }
+            $user = $moodleUserService->getUserByUsername($username);
+            return $user;
+
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => 'Server error',
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ], 500);
+        }
+    }
+
 }

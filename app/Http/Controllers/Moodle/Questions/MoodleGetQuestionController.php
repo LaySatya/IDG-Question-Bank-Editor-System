@@ -56,6 +56,8 @@ class MoodleGetQuestionController extends Controller
         }
     }
 
+
+    // Show paginated questions by category
     public function showPaginationQuestionsByCategory(Request $request)
     {
         try {

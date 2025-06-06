@@ -47,4 +47,25 @@ class MoodleUserController extends Controller
             ], 500);
         }
     }
+
+    // Show users by role
+    public function showUsersByRole(Request $request, MoodleUserService $moodleUserService)
+    {
+        try {
+            $rolename = $request->input('rolename');
+            if (!$rolename) {
+                return response()->json(['error' => 'Role is required'], 400);
+            }
+            $users = $moodleUserService->getUserByRole($rolename);
+            return $users;
+
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => 'Server error',
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ], 500);
+        }
+    }
+
 }

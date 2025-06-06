@@ -23,6 +23,11 @@ Route::middleware(['moodle.token'])->group(function () {
 
     // Get all question categories
     Route::get('questions/categories', [MoodleGetQuestionCategoryController::class, 'showAllQuestionCategories']);
+
+
+    // Get all users by role
+    Route::get('/user', [MoodleUserController::class, 'showUsersByRole']);
+
 });
 
 Route::post('/user', [MoodleUserController::class, 'login']);

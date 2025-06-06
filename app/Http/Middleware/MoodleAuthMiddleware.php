@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Cache;
 
 class MoodleAuthMiddleware
 {
@@ -14,19 +15,19 @@ class MoodleAuthMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         $authHeader = $request->header('Authorization');
-
-
-        if (!$authHeader || !preg_match('/Bearer\s(\S+)/', $authHeader, $matches)) {
-            return response()->json(['error' => 'Unauthorized: Missing Bearer token'], 401);
+        if (!$authHeader || !str_starts_with($authHeader, 'Bearer ')) {
+            return response()->json(['error' => 'Unauthorized. Token missing.'], 401);
         }
 
+        $token = substr($authHeader, 7);
+        $user = Cache::get('moodle_token_' . $token);
 
-        $token = $matches[1];
-        $cachedToken = cache()->get('moodle_token');
-
-        if ($token !== $cachedToken) {
-            return response()->json(['error' => 'Unauthorized: Invalid token'], 401);
+        if (!$user) {
+            return response()->json(['error' => 'Unauthorized. Invalid token.'], 401);
         }
+
+        // Optionally, attach user info to the request
+        $request->attributes->set('moodle_user', $user);
 
         return $next($request);
     }

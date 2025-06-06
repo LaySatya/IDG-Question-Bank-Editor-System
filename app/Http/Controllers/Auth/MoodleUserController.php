@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\Auth\MoodleUser\MoodleUserService;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Cache;
 
 class MoodleUserController extends Controller
 {
@@ -13,34 +15,36 @@ class MoodleUserController extends Controller
      */
     public function login(Request $request, MoodleUserService $moodleUserService)
     {
-        $username = $request->input('username');
-        $password = $request->input('password');
+        try {
+            $username = $request->input('usernameoremail');
+            $password = $request->input('password');
+            if (!$username || !$password) {
+                return response()->json(['error' => 'Username and password are required'], 400);
+            }
+            $result = $moodleUserService->loginUser($username, $password);
 
-        if (!$username || !$password) {
+            // Check if login was successful (adjust this check based on your actual response)
+            if (isset($result['status']) && $result['status']) {
+                // Generate a token
+                $token = Str::random(60);
+                // Store token and user info in cache for 2 hours
+                Cache::put('moodle_token_' . $token, [
+                    'username' => $username,
+                    // Add more user info if needed
+                ], now()->addHours(2));
+
+                // Return token with result
+                $result['token'] = $token;
+            }
+
+            return response()->json($result);
+
+        } catch (\Throwable $e) {
             return response()->json([
-                'error' => 'Username and password are required',
-            ], 400);
+                'error' => 'Server error',
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ], 500);
         }
-
-        $result = $moodleUserService->getUserToken(
-            $username,
-            $password
-        );
-
-        if (isset($result['token'])) {
-            // Store the token in cache for this username
-            cache()->put('moodle_token', $result['token']);
-
-            return response()->json([
-                'token' => $result['token'],
-                'message' => 'Login successful',
-                'username' => $username,
-            ], 200);
-        }
-
-        return response()->json([
-            'error' => $result['error'] ?? 'Login failed',
-            'details' => $result,
-        ], 401);
     }
 }

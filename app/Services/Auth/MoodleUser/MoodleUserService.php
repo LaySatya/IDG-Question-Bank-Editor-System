@@ -3,39 +3,28 @@
 namespace App\Services\Auth\MoodleUser;
 
 use Illuminate\Support\Facades\Http;
-
-class MoodleUserService
+use App\Services\MoodleBaseService;
+class MoodleUserService extends MoodleBaseService
 {
-    protected string $moodleUrl;
-    protected string $serviceName;
+    // protected string $moodleUrl;
+    // protected string $serviceName;
 
-    public function __construct()
-    {
-        $this->moodleUrl = config('services.moodle.url');
-        $this->serviceName = config('services.moodle.service_name');
-    }
+    // public function __construct()
+    // {
+    //     $this->moodleUrl = config('services.moodle.url');
+    //     $this->serviceName = config('services.moodle.service_name');
+    // }
 
     /**
      * Get a Moodle user token by username and password.
      */
-    public function getUserToken(string $username, string $password): array
+    public function loginUser(string $username, string $password)
     {
-        $url = "{$this->moodleUrl}/login/token.php";
-        $response = Http::asForm()->post($url, [
-            'username' => $username,
+        $params = array_merge($this->getBaseParams(), [
+            'wsfunction' => 'local_idgqbank_login_user_by_role',
+            'usernameoremail' => $username,
             'password' => $password,
-            'service'  => $this->serviceName,
         ]);
-
-        if ($response->ok()) {
-            $json = $response->json();
-            return is_array($json) ? $json : ['error' => 'Invalid JSON response', 'raw' => $response->body()];
-        }
-
-        return [
-            'error' => 'Failed to get token',
-            'status' => $response->status(),
-            'body'   => $response->body(),
-        ];
+        return $this->sendRequest($params);
     }
 }

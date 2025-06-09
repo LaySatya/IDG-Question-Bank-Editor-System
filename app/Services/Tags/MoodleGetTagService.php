@@ -26,4 +26,13 @@ class MoodleGetTagService extends MoodleBaseService
         ]);
         return $this->sendRequest($params);
     }
+
+    // Get tags by question id from moodle
+    public function getTagsByQuestionId(int $questionId){
+        $params = array_merge($this->getBaseParams(), [
+            'wsfunction' => 'local_idgqbank_get_tags_by_question_id',
+            'questionid' => $questionId,
+        ]);
+        return $this->sendRequest($params);
+    }
 }

@@ -51,5 +51,24 @@ class MoodleGetTagController extends Controller
         }
     }
 
+    // Show tags by question id
+    public function showTagsByQuestionId(Request $request){
+        try {
+            $questionId = $request->input('questionid');
+            if (empty($questionId) || !is_numeric($questionId)) {
+                return response()->json(['error' => 'Invalid question ID'], 400);
+            }
+
+            $tags = $this->moodleGetTagService->getTagsByQuestionId($questionId);
+            return response()->json($tags);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => 'Server error',
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ], 500);
+        }
+    }
+
 
 }

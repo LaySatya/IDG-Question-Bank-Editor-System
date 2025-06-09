@@ -56,6 +56,26 @@ class MoodleGetQuestionController extends Controller
         }
     }
 
+    // Show all questions by category id
+    public function showAllQuestionsByCategory(Request $request){
+        try {
+            $categoryId = $request->input('categoryid');
+            if (!$categoryId) {
+                return response()->json(['error' => 'Category ID is required'], 400);
+            }
+
+            $questions = $this->moodleGetQuestionService->getAllQuestionsByCategoryId($categoryId);
+            return response()->json($questions);
+
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => 'Server error',
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ], 500);
+        }
+    }
+
 
     // Show paginated questions by category
     public function showPaginationQuestionsByCategory(Request $request)

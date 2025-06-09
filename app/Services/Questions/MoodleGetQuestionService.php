@@ -28,6 +28,15 @@ class MoodleGetQuestionService extends MoodleBaseService
         return $this->sendRequest($params);
     }
 
+    // Get all questions by category id from moodle
+    public function getAllQuestionsByCategoryId(int $categoryId){
+        $params = array_merge($this->getBaseParams(), [
+            'wsfunction' => 'local_idgqbank_get_questions_by_category',
+            'categoryid' => $categoryId,
+        ]);
+        return $this->sendRequest($params);
+    }
+
     // Get questions by category id from moodle
     public function getQuestionsByCategoryId(int $categoryId){
         $params = array_merge($this->getBaseParams(), [
@@ -40,7 +49,7 @@ class MoodleGetQuestionService extends MoodleBaseService
     // Get paginated questions by category id from moodle
     public function getPaginationQuestionsByCategory(int $categoryId, int $page = 1, int $perPage = 10){
         $params = array_merge($this->getBaseParams(), [
-            'wsfunction' => 'local_idgqbank_get_pagination_questions_by_cateogry',
+            'wsfunction' => 'local_idgqbank_get_pagination_questions_by_category',
             'categoryid' => $categoryId,
             'page' => $page,
             'perpage' => $perPage,

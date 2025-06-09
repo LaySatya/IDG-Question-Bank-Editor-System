@@ -22,7 +22,7 @@ Route::middleware(['moodle.token'])->group(function () {
     // Question routes
     Route::prefix('questions')->controller(MoodleGetQuestionController::class)->group(function () {
         Route::get('/', 'showAllQuestions'); // /questions
-        // Route::get('/category', 'showAllQuestionsByCategory'); // /questions/category
+        Route::get('/category', 'showAllQuestionsByCategory'); // /questions/category
         Route::get('/pagination', 'showAllQuestionPaginations'); // /questions/pagination
         Route::get('/pagination/category', 'showPaginationQuestionsByCategory'); // /questions/pagination/category
         Route::get('/question', 'showQuestionById'); // /questions/question

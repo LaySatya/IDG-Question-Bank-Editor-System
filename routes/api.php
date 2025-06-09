@@ -5,12 +5,19 @@ use App\Http\Controllers\Auth\MoodleUserController;
 use App\Http\Controllers\Moodle\Categories\MoodleGetQuestionCategoryController;
 use App\Http\Controllers\Moodle\Questions\MoodleGetQuestionController;
 use App\Http\Controllers\Moodle\Questions\MoodleUpdateQuestionController;
+use App\Http\Controllers\Moodle\Tags\MoodleGetTagController;
 
 // Public route for login
 Route::post('/users', [MoodleUserController::class, 'login']);
 
 // Protected routes
 Route::middleware(['moodle.token'])->group(function () {
+
+    // User routes
+    Route::prefix('users')->controller(MoodleUserController::class)->group(function () {
+        Route::get('/', 'showUsersByRole'); // /users
+        Route::get('/user-by-username', 'showUserByUsername'); // /users/user-by-username
+    });
 
     // Question routes
     Route::prefix('questions')->controller(MoodleGetQuestionController::class)->group(function () {
@@ -27,14 +34,15 @@ Route::middleware(['moodle.token'])->group(function () {
     });
 
     // Question category routes
-    Route::prefix('questions/categories')->controller(MoodleGetQuestionCategoryController::class)->group(function () {
-        Route::get('/', 'showAllQuestionCategories'); // /questions/categories
+    Route::prefix('questions')->controller(MoodleGetQuestionCategoryController::class)->group(function () {
+        Route::get('/categories', 'showAllQuestionCategories'); // /questions/categories
     });
 
-    // User routes
-    Route::prefix('users')->controller(MoodleUserController::class)->group(function () {
-        Route::get('/', 'showUsersByRole'); // /users
-        Route::get('/user-by-username', 'showUserByUsername'); // /users/user-by-username
+    // Tags routes
+    Route::prefix('questions')->controller(MoodleGetTagController::class)->group(function () {
+        Route::get('/tags', 'showAllTags'); // /tags
     });
+
+
 
 });

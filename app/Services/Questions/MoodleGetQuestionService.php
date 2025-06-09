@@ -25,7 +25,6 @@ class MoodleGetQuestionService extends MoodleBaseService
             'perpage' => $perPage,
         ]);
 
-
         return $this->sendRequest($params);
     }
 

@@ -1,38 +1,39 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\MoodleUserController;
 use App\Http\Controllers\Moodle\Categories\MoodleGetQuestionCategoryController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Moodle\Questions\MoodleGetQuestionController;
+use App\Http\Controllers\Moodle\Questions\MoodleUpdateQuestionController;
 
-// Route::get('/user', function (Request $request) {
-//     return $request->user();
-// })->middleware('auth:sanctum');
+// Public route for login
+Route::post('/users', [MoodleUserController::class, 'login']);
 
-
+// Protected routes
 Route::middleware(['moodle.token'])->group(function () {
 
-    // Get all questions
-    Route::get('questions', [MoodleGetQuestionController::class, 'showAllQuestions']);
+    // Question routes
+    Route::prefix('questions')->controller(MoodleGetQuestionController::class)->group(function () {
+        Route::get('/', 'showAllQuestions'); // /questions
+        Route::get('/pagination', 'showAllQuestionPaginations'); // /questions/pagination
+        Route::get('/pagination/category', 'showPaginationQuestionsByCategory'); // /questions/pagination/category
+        Route::get('/question', 'showQuestionById'); // /questions/question
+    });
 
-    // Get paginated questions
-    Route::get('questions/pagination', [MoodleGetQuestionController::class, 'showAllQuestionPaginations']);
+    // Bulk update questions
+    Route::prefix('questions')->controller(MoodleUpdateQuestionController::class)->group(function(){
+        Route::post('/status','bulkUpdateQuestionStatus'); // /questions/status
+    });
 
-    // Get paginated questions with category
-    Route::get('questions/pagination/category', [MoodleGetQuestionController::class, 'showPaginationQuestionsByCategory']);
+    // Question category routes
+    Route::prefix('questions/categories')->controller(MoodleGetQuestionCategoryController::class)->group(function () {
+        Route::get('/', 'showAllQuestionCategories'); // /questions/categories
+    });
 
-    // Get all question categories
-    Route::get('questions/categories', [MoodleGetQuestionCategoryController::class, 'showAllQuestionCategories']);
-
-    // Get question by question id
-    Route::get('questions/question', [MoodleGetQuestionController::class, 'showQuestionById']);
-
-    // Get all users by role
-    Route::get('/user', [MoodleUserController::class, 'showUsersByRole']);
-
-    // Get user by username
-    Route::get('user/user-by-username', [MoodleUserController::class, 'showUserByUsername']);
+    // User routes
+    Route::prefix('users')->controller(MoodleUserController::class)->group(function () {
+        Route::get('/', 'showUsersByRole'); // /users
+        Route::get('/user-by-username', 'showUserByUsername'); // /users/user-by-username
+    });
 
 });
-
-Route::post('/user', [MoodleUserController::class, 'login']);

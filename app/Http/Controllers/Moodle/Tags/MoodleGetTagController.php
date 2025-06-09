@@ -30,4 +30,26 @@ class MoodleGetTagController extends Controller
             ], 500);
         }
     }
+
+    // Show tag by tags id
+    public function showTagById(Request $request)
+    {
+        try {
+            $tagIds = $request->input('tags.id', []);
+            if (empty($tagIds) || !is_array($tagIds)) {
+                return response()->json(['error' => 'Invalid tag ID'], 400);
+            }
+
+            $tag = $this->moodleGetTagService->getTagById($tagIds);
+            return response()->json($tag);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => 'Server error',
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ], 500);
+        }
+    }
+
+
 }

@@ -41,6 +41,7 @@ Route::middleware(['moodle.token'])->group(function () {
     // Tags routes
     Route::prefix('questions')->controller(MoodleGetTagController::class)->group(function () {
         Route::get('/tags', 'showAllTags'); // /tags
+        Route::get('/tag', 'showTagById'); // /tags/tag
     });
 
 

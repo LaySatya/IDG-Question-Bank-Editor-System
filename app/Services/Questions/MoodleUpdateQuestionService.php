@@ -19,4 +19,16 @@ class MoodleUpdateQuestionService extends MoodleBaseService
 
         return $this->sendRequest($params);
     }
+
+    // Edit Question Status By Specific Question ID
+    public function editQuestionStatusByQuestionId(int $questionId, string $status)
+    {
+        $params = array_merge($this->getBaseParams(), [
+            'wsfunction' => 'qbank_editquestion_set_status',
+            'questionid' => $questionId,
+            'status' => $status,
+        ]);
+
+        return $this->sendRequest($params);
+    }
 }

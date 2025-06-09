@@ -23,6 +23,7 @@ Route::middleware(['moodle.token'])->group(function () {
     // Bulk update questions
     Route::prefix('questions')->controller(MoodleUpdateQuestionController::class)->group(function(){
         Route::post('/status','bulkUpdateQuestionStatus'); // /questions/status
+        Route::post('/set-question-status', 'setQuestionStatusByQuestionId'); // /questions/set-status
     });
 
     // Question category routes

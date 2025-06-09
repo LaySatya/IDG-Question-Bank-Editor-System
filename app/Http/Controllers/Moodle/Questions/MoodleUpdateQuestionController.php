@@ -44,4 +44,31 @@ class MoodleUpdateQuestionController extends Controller
             ], 500);
         }
     }
+
+    public function setQuestionStatusByQuestionId(Request $request)
+    {
+        try {
+            $questionId = $request->input('questionid');
+            $status = $request->input('newstatus');
+
+            if (empty($questionId) || !is_numeric($questionId)) {
+                return response()->json(['error' => 'Invalid question ID'], 400);
+            }
+
+            if (!in_array($status, ['ready', 'draft'])) {
+                return response()->json(['error' => 'Invalid status'], 400);
+            }
+
+            $result = $this->moodleUpdateQuestionService->editQuestionStatusByQuestionId($questionId, $status);
+
+            return response()->json($result);
+
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => 'Server error',
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ], 500);
+        }
+    }
 }

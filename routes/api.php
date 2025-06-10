@@ -5,7 +5,7 @@ use App\Http\Controllers\Auth\MoodleUserController;
 use App\Http\Controllers\Moodle\Categories\MoodleGetQuestionCategoryController;
 use App\Http\Controllers\Moodle\Questions\MoodleGetQuestionController;
 use App\Http\Controllers\Moodle\Questions\MoodleUpdateQuestionController;
-use App\Http\Controllers\Moodle\Tags\MoodleAddQuestionTagsController;
+use App\Http\Controllers\Moodle\Tags\MoodleActionsQuestionTagsController;
 use App\Http\Controllers\Moodle\Tags\MoodleGetTagController;
 
 // Public route for login
@@ -34,6 +34,7 @@ Route::middleware(['moodle.token'])->group(function () {
     Route::prefix('questions')->controller(MoodleUpdateQuestionController::class)->group(function(){
         Route::post('/status','bulkUpdateQuestionStatus'); // /questions/status
         Route::post('/set-question-status', 'setQuestionStatusByQuestionId'); // /questions/set-status
+        Route::post('/bulk-tags','bulkEditAddQuestionsTags');
     });
 
     // Question category routes
@@ -48,8 +49,9 @@ Route::middleware(['moodle.token'])->group(function () {
         Route::get('/question-tags', 'showTagsByQuestionId'); // /tags/question
     });
     // Add tags to a question
-    Route::prefix('questions')->controller(MoodleAddQuestionTagsController::class)->group(function () {
+    Route::prefix('questions')->controller(MoodleActionsQuestionTagsController::class)->group(function () {
         Route::post('tags', 'addTagsToAQuestion'); // /tags/add
+        Route::delete('tags', 'removeTagsFromAQuestion'); // /tags/remove
     });
 
 

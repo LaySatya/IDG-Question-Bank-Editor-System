@@ -18,4 +18,14 @@ class MoodleActionsQuestionTagsService extends MoodleBaseService
         return $this->sendRequest($params);
     }
 
+    // Remove tags from a question in moodle
+    public function removeTagsFromQuestion(int $questionId, array $tagIds){
+        $params = array_merge($this->getBaseParams(), [
+            'wsfunction' => 'local_idgqbank_remove_tags_from_question',
+            'tagids' => $tagIds,
+            'questionid' => $questionId,
+        ]);
+        return $this->sendRequest($params);
+    }
+
 }

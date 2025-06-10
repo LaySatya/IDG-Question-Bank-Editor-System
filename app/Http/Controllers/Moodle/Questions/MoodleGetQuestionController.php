@@ -118,4 +118,27 @@ class MoodleGetQuestionController extends Controller
             ], 500);
         }
     }
+
+    // Show all questions by tag with specific category
+    public function showAllQuestionsByTagWithSpecificCategory(Request $request)
+    {
+        try {
+            $tagIds = $request->input('tagids');
+            $categoryId = $request->input('categoryid');
+
+            if (empty($tagIds) || !is_array($tagIds)) {
+                return response()->json(['error' => 'Invalid tag ids'], 400);
+            }
+
+            $questions = $this->moodleGetQuestionService->getAllQuestionsByTagWithSpecificCategory($categoryId, $tagIds);
+            return response()->json($questions);
+
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => 'Server error',
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ], 500);
+        }
+    }
 }

@@ -65,4 +65,15 @@ class MoodleGetQuestionService extends MoodleBaseService
         ]);
         return $this->sendRequest($params);
     }
+
+    // Get all questions by tag and category id from moodle
+    public function getAllQuestionsByTagWithSpecificCategory(?int $categoryId, array $tagId) {
+
+        $params = array_merge($this->getBaseParams(), [
+            'wsfunction' => 'local_idgqbank_get_questions_by_tags_with_specific_category',
+            'tagids' => $tagId,
+            'categoryid' => $categoryId,
+        ]);
+        return $this->sendRequest($params);
+    }
 }

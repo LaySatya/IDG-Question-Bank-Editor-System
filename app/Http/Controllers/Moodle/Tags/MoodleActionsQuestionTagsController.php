@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Moodle\Tags;
 
 use App\Http\Controllers\Controller;
-use App\Services\Tags\MoodleAddQuestionTagsService;
+use App\Services\Tags\MoodleActionsQuestionTagsService;
 use Illuminate\Http\Request;
 
-class MoodleAddQuestionTagsController extends Controller
+class MoodleActionsQuestionTagsController extends Controller
 {
-    protected MoodleAddQuestionTagsService $moodleAddQuestionTagService;
+    protected MoodleActionsQuestionTagsService $moodleAddQuestionTagService;
 
-    public function __construct(MoodleAddQuestionTagsService $moodleGetTagService)
+    public function __construct(MoodleActionsQuestionTagsService $moodleGetTagService)
     {
         $this->moodleAddQuestionTagService = $moodleGetTagService;
     }

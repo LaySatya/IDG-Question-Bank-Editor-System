@@ -5,7 +5,7 @@ namespace App\Services\Tags;
 use App\Services\MoodleBaseService;
 
 
-class MoodleAddQuestionTagsService extends MoodleBaseService
+class MoodleActionsQuestionTagsService extends MoodleBaseService
 {
 
     // Add tags to a question to moodle

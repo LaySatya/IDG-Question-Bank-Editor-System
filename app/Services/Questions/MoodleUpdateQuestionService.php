@@ -31,4 +31,17 @@ class MoodleUpdateQuestionService extends MoodleBaseService
 
         return $this->sendRequest($params);
     }
+
+    // Bulk Edit Question Tags - add tags to questions
+    public function bulkEditAddQuestionsTags(array $questionIds, array $tagIds)
+    {
+        $params = array_merge($this->getBaseParams(), [
+            'wsfunction' => 'local_idgqbank_bulk_edit_questions_tags',
+            'questionids' => $questionIds,
+            'tagids' => $tagIds,
+            'operation' => 'add',
+        ]);
+
+        return $this->sendRequest($params);
+    }
 }

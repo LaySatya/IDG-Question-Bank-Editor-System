@@ -71,4 +71,32 @@ class MoodleUpdateQuestionController extends Controller
             ], 500);
         }
     }
+
+    // Bulk edit add tags to questions
+    public function bulkEditAddQuestionsTags(Request $request)
+    {
+        try {
+            $questionIds = $request->input('questionids', []);
+            $tagIds = $request->input('tagids', []);
+
+            if (empty($questionIds) || !is_array($questionIds)) {
+                return response()->json(['error' => 'Invalid question IDs'], 400);
+            }
+
+            if (empty($tagIds) || !is_array($tagIds)) {
+                return response()->json(['error' => 'Invalid tag IDs'], 400);
+            }
+
+            $result = $this->moodleUpdateQuestionService->bulkEditAddQuestionsTags($questionIds, $tagIds);
+
+            return response()->json($result);
+
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => 'Server error',
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ], 500);
+        }
+    }
 }

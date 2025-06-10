@@ -35,6 +35,7 @@ Route::middleware(['moodle.token'])->group(function () {
         Route::post('/status','bulkUpdateQuestionStatus'); // /questions/status
         Route::post('/set-question-status', 'setQuestionStatusByQuestionId'); // /questions/set-status
         Route::post('/bulk-tags','bulkEditAddQuestionsTags');
+        Route::delete('/bulk-tags','bulkEditRemoveTagsFromQuestions'); // /questions/bulk-tags
     });
 
     // Question category routes

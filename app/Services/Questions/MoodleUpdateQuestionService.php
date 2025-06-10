@@ -44,4 +44,17 @@ class MoodleUpdateQuestionService extends MoodleBaseService
 
         return $this->sendRequest($params);
     }
+
+    // Bulk Edit Question Tags - remove tags from questions
+    public function bulkEditRemoveQuestionsTags(array $questionIds, array $tagIds)
+    {
+        $params = array_merge($this->getBaseParams(), [
+            'wsfunction' => 'local_idgqbank_bulk_edit_questions_tags',
+            'questionids' => $questionIds,
+            'tagids' => $tagIds,
+            'operation' => 'remove',
+        ]);
+
+        return $this->sendRequest($params);
+    }
 }

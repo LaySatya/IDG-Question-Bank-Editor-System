@@ -76,4 +76,12 @@ class MoodleGetQuestionService extends MoodleBaseService
         ]);
         return $this->sendRequest($params);
     }
+
+    // Get all question types
+    public function getAllQuestionTypes(){
+        $params = array_merge($this->getBaseParams(), [
+            'wsfunction' => 'local_idgqbank_get_question_types',
+        ]);
+        return $this->sendRequest($params);
+    }
 }

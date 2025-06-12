@@ -141,4 +141,18 @@ class MoodleGetQuestionController extends Controller
             ], 500);
         }
     }
+
+    // Show all question types
+    public function showAllQuestionTypes(){
+        try{
+            $qtypes = $this->moodleGetQuestionService->getAllQuestionTypes();
+            return response()->json($qtypes);
+        }catch (\Throwable $e) {
+            return response()->json([
+                'error'=> 'Server error',
+                'message'=> $e->getMessage(),
+                ''=> $e->getTraceAsString()
+            ] , 500);
+        }
+    }
 }

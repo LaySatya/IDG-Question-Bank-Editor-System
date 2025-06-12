@@ -84,4 +84,14 @@ class MoodleGetQuestionService extends MoodleBaseService
         ]);
         return $this->sendRequest($params);
     }
+
+    // Get questions by qtype from moodle
+    public function getQuestionsByQtype($qtype, $categoryid){
+        $params = array_merge($this->getBaseParams(), [
+               'wsfunction' => 'local_idgqbank_get_questions_by_qtype',
+               'qtypename' => $qtype,
+               'categoryid' => $categoryid
+        ]);
+        return $this->sendRequest($params);
+    }
 }

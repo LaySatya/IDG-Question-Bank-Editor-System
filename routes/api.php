@@ -29,6 +29,7 @@ Route::middleware(['moodle.token'])->group(function () {
         Route::get('/question', 'showQuestionById'); // /questions/question
         Route::get('/tags-with-category','showAllQuestionsByTagWithSpecificCategory'); // /questions/tags
         Route::get('/qtypes','showAllQuestionTypes');
+        Route::get('/questions-by-qtype','showQuestionsByQtype');
     });
 
     // Bulk update questions

@@ -142,7 +142,7 @@ class MoodleGetQuestionController extends Controller
         }
     }
 
-    // Show all question types
+    // Show all questions types
     public function showAllQuestionTypes(){
         try{
             $qtypes = $this->moodleGetQuestionService->getAllQuestionTypes();
@@ -154,5 +154,27 @@ class MoodleGetQuestionController extends Controller
                 ''=> $e->getTraceAsString()
             ] , 500);
         }
+    }
+
+    // Show questions by qtype
+    public function showQuestionsByQtype(Request $request){
+        try{
+            $qtype = $request->input('qtypename');
+            $categoryid = $request->input('categoryid');
+            if (!$qtype) {
+                return response()->json(['error' => 'Qtype is required'], 400);
+            }
+
+            $questions = $this->moodleGetQuestionService->getQuestionsByQtype($qtype, $categoryid);
+            return response()->json($questions);
+
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => 'Server error',
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ], 500);
+        }
+
     }
 }

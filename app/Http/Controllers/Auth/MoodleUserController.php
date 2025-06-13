@@ -87,4 +87,20 @@ class MoodleUserController extends Controller
         }
     }
 
+    // Show all users
+    public function showAllUsers(Request $request, MoodleUserService $moodleUserService){
+        try {
+            $department = $request->input('department');
+            $page = $request->input('page', 1);
+            $users = $moodleUserService->getAllUsers($department, $page);
+            return $users;
+        } catch (\Throwable $e) {
+            return response()->json([
+                  'error' => 'Server error',
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ], 500);
+        }
+    }
+
 }

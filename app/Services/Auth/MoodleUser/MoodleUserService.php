@@ -48,4 +48,14 @@ class MoodleUserService extends MoodleBaseService
         ]);
         return $this->sendRequest($params);
     }
+
+    // Get all users from moodle - Optional (deparment param, page=1)
+    public function getAllUsers(?string $department, ?int $page){
+        $params = array_merge($this->getBaseParams(), [
+            'wsfunction' => 'local_idgqbank_get_all_users',
+            'department' => $department,
+            'page'=> $page,
+        ]);
+        return $this->sendRequest($params);
+    }
 }

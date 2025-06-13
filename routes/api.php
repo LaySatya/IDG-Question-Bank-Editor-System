@@ -16,7 +16,8 @@ Route::middleware(['moodle.token'])->group(function () {
 
     // User routes
     Route::prefix('users')->controller(MoodleUserController::class)->group(function () {
-        Route::get('/', 'showUsersByRole'); // /users
+        Route::get('/','showAllUsers');
+        Route::get('/user-role', 'showUsersByRole'); // /users
         Route::get('/user-by-username', 'showUserByUsername'); // /users/user-by-username
     });
 

@@ -37,6 +37,7 @@ class MoodleUserController extends Controller
                 $result['token'] = $token;
             }
 
+
             return response()->json($result);
 
         } catch (\Throwable $e) {

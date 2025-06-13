@@ -177,4 +177,33 @@ class MoodleGetQuestionController extends Controller
         }
 
     }
+
+    // Full filter questions
+    public function fullFilterQuestions(Request $request){
+        try{
+            $tagIds = $request->input('tagids', []);
+            $categoryid = $request->input('categoryid');
+            $searchTerm = $request->input('searchterm');
+            $qtype = $request->input('qtype');
+            $status = $request->input('status');
+            $createdBy = $request->input('createdby');
+            $page = $request->input('page', 1);
+            $perPage = $request->input('per_page', 10);
+            if (!is_array($tagIds)) {
+                return response()->json(['error' => 'Invalid tag ids, tagids must be in array'], 400);
+            }
+
+            $questions = $this->moodleGetQuestionService->filterQuestions($tagIds, $categoryid, $searchTerm, $qtype, $status, $createdBy, $page, $perPage);
+            return response()->json($questions);
+
+        }catch (\Throwable $e) {
+            return response()->json([
+                'error' => 'Server error',
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ], 500);
+        }
+
+    }
+
 }

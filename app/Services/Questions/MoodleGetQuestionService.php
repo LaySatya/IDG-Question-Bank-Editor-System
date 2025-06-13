@@ -94,4 +94,21 @@ class MoodleGetQuestionService extends MoodleBaseService
         ]);
         return $this->sendRequest($params);
     }
+
+    // Filter questions by category, qtext, qname, tags, status, qtype, user-who-created-questions from moodle
+    public function filterQuestions(?array $tagids, ?int $categoryid, ?string $searchterm, ?string $qtype, ?string $status, ?int $createdby, ?int $page, ?int $perPage){
+        $params = array_merge($this->getBaseParams(), [
+            'wsfunction' => 'local_idgqbank_filter_questions',
+            'tagids' => $tagids,
+            'categoryid' => $categoryid,
+            'searchterm' => $searchterm,
+            'qtype' => $qtype,
+            'status' => $status,
+            'createdby' => $createdby,
+            'page' => $page,
+            'perpage'=> $perPage
+        ]);
+        return $this->sendRequest($params);
+    }
+
 }

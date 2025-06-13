@@ -31,4 +31,8 @@ class MoodleAuthMiddleware
 
         return $next($request);
     }
+
+    // Hanlde (Two-Factors Authentication, ...)
+
+    // TODO - Additional Features
 }

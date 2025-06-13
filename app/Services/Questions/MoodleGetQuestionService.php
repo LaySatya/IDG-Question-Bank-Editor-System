@@ -47,7 +47,7 @@ class MoodleGetQuestionService extends MoodleBaseService
     }
 
     // Get paginated questions by category id from moodle
-    public function getPaginationQuestionsByCategory(int $categoryId, int $page = 1, int $perPage = 10){
+    public function getPaginationQuestionsByCategory(?int $categoryId, int $page = 1, int $perPage = 10){
         $params = array_merge($this->getBaseParams(), [
             'wsfunction' => 'local_idgqbank_get_pagination_questions_by_category',
             'categoryid' => $categoryId,

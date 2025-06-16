@@ -17,7 +17,7 @@ class MoodleGetQuestionService extends MoodleBaseService
     }
 
     // Get paginated questions from moodle - 10 questions per page
-     public function getPaginatedQuestions(int $page = 1, int $perPage = 10): array
+     public function getPaginatedQuestions(int $page = 1, int $perPage): array
     {
         $params = array_merge($this->getBaseParams(), [
             'wsfunction' => 'local_idgqbank_get_pagination_questions',

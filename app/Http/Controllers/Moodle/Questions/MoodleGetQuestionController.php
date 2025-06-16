@@ -83,7 +83,7 @@ class MoodleGetQuestionController extends Controller
         try {
             $categoryId = $request->input('categoryid');
             $page = $request->input('page', 1);
-            $perPage = $request->input('per_page', 10);
+            $perPage = $request->input('per_page', 5);
 
             // Paginate the questions with category
             $paginatedQuestions = $this->moodleGetQuestionService->getPaginationQuestionsByCategory($categoryId, $page, $perPage);
@@ -188,7 +188,7 @@ class MoodleGetQuestionController extends Controller
             $status = $request->input('status');
             $createdBy = $request->input('createdby');
             $page = $request->input('page', 1);
-            $perPage = $request->input('per_page', 10);
+            $perPage = $request->input('per_page', 5);
             if (!is_array($tagIds)) {
                 return response()->json(['error' => 'Invalid tag ids, tagids must be in array'], 400);
             }

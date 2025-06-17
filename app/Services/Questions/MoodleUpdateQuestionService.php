@@ -57,4 +57,18 @@ class MoodleUpdateQuestionService extends MoodleBaseService
 
         return $this->sendRequest($params);
     }
+
+    // Update Question Name
+    public function editQuestionName(string $questionId, string $name, ?string $questionText, ?int $questionTextFormat, $userId){
+        $params = array_merge($this->getBaseParams(), [
+            'wsfunction' => 'local_idgqbank_update_question_name',
+            'questionid' => $questionId,
+            'name' => $name,
+            'questiontext' =>  $questionText,
+            'questiontextformat'=> $questionTextFormat,
+            'userid' => $userId
+        ]);
+
+        return $this->sendRequest($params);
+    }
 }

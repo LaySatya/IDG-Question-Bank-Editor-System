@@ -12,7 +12,7 @@ use App\Http\Controllers\Moodle\Tags\MoodleGetTagController;
 Route::post('/users', [MoodleUserController::class, 'login']);
 
 // Protected routes
-Route::middleware(['moodle.token'])->group(function () {
+// Route::middleware(['moodle.token'])->group(function () {
 
     // User routes
     Route::prefix('users')->controller(MoodleUserController::class)->group(function () {
@@ -36,6 +36,7 @@ Route::middleware(['moodle.token'])->group(function () {
 
     // Bulk update questions
     Route::prefix('questions')->controller(MoodleUpdateQuestionController::class)->group(function(){
+        Route::put('/','updateQuestionName');
         Route::post('/status','bulkUpdateQuestionStatus'); // /questions/status
         Route::post('/set-question-status', 'setQuestionStatusByQuestionId'); // /questions/set-status
         Route::post('/bulk-tags','bulkEditAddQuestionsTags');
@@ -61,4 +62,4 @@ Route::middleware(['moodle.token'])->group(function () {
 
 
 
-});
+// });

@@ -126,4 +126,29 @@ class MoodleUpdateQuestionController extends Controller
             ], 500);
         }
     }
+
+    // Update question name
+    public function updateQuestionName(Request $request){
+        try {
+            $questionId = $request->input('questionid');
+            $name = $request->input('name');
+            $questionText = $request->input('questiontext');
+            $questionTextFormat = $request->input('questiontextformat');
+            $userId = $request->input('userid');
+
+            if(empty($questionId) || empty($name) || empty($userId)){
+                return response()->json(['error'=> 'questionid, name, userid are required!'], 400);
+            }
+
+            $success = $this->moodleUpdateQuestionService->editQuestionName($questionId, $name, $questionText, $questionTextFormat, $userId);
+            return response()->json($success);
+
+        } catch (\Throwable $e) {
+             return response()->json([
+                'error' => 'Server error',
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ], 500);
+        }
+    }
 }

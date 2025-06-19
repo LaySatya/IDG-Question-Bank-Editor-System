@@ -15,5 +15,15 @@ class MoodleGetCourseCategoryService extends MoodleBaseService
         return $this->sendRequest($params);
     }
 
+    // Get all courses from category
+    public function getCoursesByCategory(int $categoryId){
+        $params = array_merge($this->getBaseParams(), [
+            'wsfunction' => 'local_idgqbank_get_courses_by_category',
+            'categoryid' => $categoryId
+        ]);
+        return $this->sendRequest($params);
+    }
+
+    //local_idgqbank_get_question_categories_by_course_category
 
 }

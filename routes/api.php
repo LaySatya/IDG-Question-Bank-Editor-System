@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\MoodleUserController;
+use App\Http\Controllers\Moodle\Categories\MoodleGetCourseCategoryController;
 use App\Http\Controllers\Moodle\Categories\MoodleGetQuestionCategoryController;
 use App\Http\Controllers\Moodle\Questions\MoodleGetQuestionController;
 use App\Http\Controllers\Moodle\Questions\MoodleUpdateQuestionController;
@@ -47,6 +48,12 @@ Route::post('/users', [MoodleUserController::class, 'login']);
     Route::prefix('questions')->controller(MoodleGetQuestionCategoryController::class)->group(function () {
         Route::get('/categories', 'showAllQuestionCategories'); // /questions/categories
     });
+
+     // Course category routes
+    Route::prefix('questions')->controller(MoodleGetCourseCategoryController::class)->group(function () {
+        Route::get('/course-categories', 'showAllCourseCategories'); // /questions/categories
+    });
+
 
     // Tags routes
     Route::prefix('questions')->controller(MoodleGetTagController::class)->group(function () {

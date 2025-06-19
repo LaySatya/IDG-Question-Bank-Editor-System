@@ -31,4 +31,27 @@ class MoodleGetQuestionCategoryController extends Controller
             ], 500);
         }
     }
+
+    // Show question categories by course
+    public function showQuestionCategoriesByCourse(Request $request){
+        try {
+            $courseId = $request->input('courseid');
+
+            if(empty($courseId)){
+                return response()->json([
+                    'error'=> 'Course Id is required!'
+                ],404);
+            }
+
+            $questionCategories = $this->moodleGetQuestionCategoryService->getQuestionCategoriesByCourse($courseId);
+
+            return $questionCategories;
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => 'Server error',
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ], 500);
+        }
+    }
 }

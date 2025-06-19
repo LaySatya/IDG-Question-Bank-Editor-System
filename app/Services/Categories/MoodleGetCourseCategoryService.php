@@ -24,6 +24,5 @@ class MoodleGetCourseCategoryService extends MoodleBaseService
         return $this->sendRequest($params);
     }
 
-    //local_idgqbank_get_question_categories_by_course_category
 
 }

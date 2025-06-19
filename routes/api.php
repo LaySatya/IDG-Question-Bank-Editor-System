@@ -47,6 +47,7 @@ Route::post('/users', [MoodleUserController::class, 'login']);
     // Question category routes
     Route::prefix('questions')->controller(MoodleGetQuestionCategoryController::class)->group(function () {
         Route::get('/categories', 'showAllQuestionCategories'); // /questions/categories
+        Route::get('/question_categories','showQuestionCategoriesByCourse');
     });
 
      // Course category routes

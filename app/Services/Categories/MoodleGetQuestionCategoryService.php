@@ -15,7 +15,14 @@ class MoodleGetQuestionCategoryService extends MoodleBaseService
         return $this->sendRequest($params);
     }
 
-    //local_idgqbank_get_question_categories_by_course_category
-
+    //local_idgqbank_get_question_categories_by_course
+    // Get question categories by course
+    public function getQuestionCategoriesByCourse(int $courseId){
+        $params = array_merge($this->getBaseParams(), [
+            'wsfunction' => 'local_idgqbank_get_question_categories_by_course',
+            'courseid' => $courseId
+        ]);
+        return $this->sendRequest($params);
+    }
 
 }

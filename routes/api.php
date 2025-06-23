@@ -13,7 +13,7 @@ use App\Http\Controllers\Moodle\Tags\MoodleGetTagController;
 Route::post('/users', [MoodleUserController::class, 'login']);
 
 // Protected routes
-// Route::middleware(['moodle.token'])->group(function () {
+Route::middleware(['moodle.token'])->group(function () {
 
     // User routes
     Route::prefix('users')->controller(MoodleUserController::class)->group(function () {
@@ -70,4 +70,4 @@ Route::post('/users', [MoodleUserController::class, 'login']);
         Route::delete('tags', 'removeTagsFromAQuestion'); // /tags/remove
     });
 
-// });
+});

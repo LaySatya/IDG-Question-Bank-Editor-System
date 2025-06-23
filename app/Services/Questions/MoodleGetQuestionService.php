@@ -111,4 +111,14 @@ class MoodleGetQuestionService extends MoodleBaseService
         return $this->sendRequest($params);
     }
 
+    // Get question versions history
+    public function trackQuestionVersions(int $qBankEntryId){
+        $params = array_merge($this->getBaseParams(), [
+               'wsfunction' => 'local_idgqbank_track_question_versions',
+               'qbankentryid' => $qBankEntryId
+        ]);
+        return $this->sendRequest($params);
+    }
+
+
 }

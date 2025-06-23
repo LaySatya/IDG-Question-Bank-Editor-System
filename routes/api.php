@@ -33,6 +33,7 @@ Route::post('/users', [MoodleUserController::class, 'login']);
         Route::get('/qtypes','showAllQuestionTypes');
         Route::get('/questions-by-qtype','showQuestionsByQtype');
         Route::get('/filters','fullFilterQuestions');
+        Route::get('/history','trackQuestionVersions');
     });
 
     // Bulk update questions
@@ -46,7 +47,7 @@ Route::post('/users', [MoodleUserController::class, 'login']);
 
     // Question category routes
     Route::prefix('questions')->controller(MoodleGetQuestionCategoryController::class)->group(function () {
-        Route::get('/categories', 'showAllQuestionCategories'); // /questions/categories
+        Route::get('/categories', action: 'showAllQuestionCategories'); // /questions/categories
         Route::get('/question_categories','showQuestionCategoriesByCourse');
     });
 
@@ -68,7 +69,5 @@ Route::post('/users', [MoodleUserController::class, 'login']);
         Route::post('tags', 'addTagsToAQuestion'); // /tags/add
         Route::delete('tags', 'removeTagsFromAQuestion'); // /tags/remove
     });
-
-
 
 // });

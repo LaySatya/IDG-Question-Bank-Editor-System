@@ -203,7 +203,25 @@ class MoodleGetQuestionController extends Controller
                 'trace' => $e->getTraceAsString()
             ], 500);
         }
+    }
 
+    // show question versions history - track question versions
+    public function trackQuestionVersions(Request $request){
+        try{
+            $qBankEntryId = $request->input('qbankentryid');
+            if(empty($qBankEntryId)){
+                return response()->json(['error' => 'Question Id is required'], 400);
+            }
+            $qVersions = $this->moodleGetQuestionService->trackQuestionVersions($qBankEntryId);
+
+            return response()->json($qVersions);
+        }catch (\Throwable $e) {
+            return response()->json([
+                'error' => 'Server error',
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ], 500);
+        }
     }
 
 }

@@ -37,4 +37,29 @@ class MoodleActionQuestionCommentController extends Controller
             ], 500);
         }
     }
+    public function addCommentQuestion(Request $request){
+
+        try {
+           $questionId = $request->input('questionid');
+           $content = $request->input('content');
+           $userId = $request->input('userid');
+           $format = $request->input('format');
+
+            if(empty($questionId || empty($content))){
+                return response()->json([
+                    'error'=> 'Question Id and content of comment are required!'
+                ],404);
+            }
+
+            $comments = $this->moodleCommentService->addCommentQuestion($questionId, $content, $userId, $format);
+
+            return $comments;
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => 'Server error',
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ], 500);
+        }
+    }
 }

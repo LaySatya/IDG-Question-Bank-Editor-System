@@ -15,5 +15,15 @@ class MoodleActionQuestionCommentService extends MoodleBaseService
         ]);
         return $this->sendRequest($params);
     }
+    public function addCommentQuestion(int $questionId, string $content, ?int $userId, ?int $format){
+        $params = array_merge($this->getBaseParams(), [
+            'wsfunction' => 'local_idgqbank_add_comments_question',
+            'questionid' => $questionId,
+            'content' => $content,
+            'userid' => $userId,
+            'format' => $format
+        ]);
+        return $this->sendRequest($params);
+    }
 
 }

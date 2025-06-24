@@ -75,7 +75,7 @@ Route::middleware(['moodle.token'])->group(function () {
     // Question Comments
      Route::prefix('questions')->controller(MoodleActionQuestionCommentController::class)->group(function () {
         Route::get('/comments', 'showQuestionComments');
-        // Route::post('/comments', 'addQuestionComment');
+        Route::post('/comments', 'addCommentQuestion');
         // Route::delete('/comments','removeQuestionComment');
     });
 

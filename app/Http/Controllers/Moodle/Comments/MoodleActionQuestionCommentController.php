@@ -62,4 +62,28 @@ class MoodleActionQuestionCommentController extends Controller
             ], 500);
         }
     }
+    public function removeCommentQuestion(Request $request){
+
+        try {
+           $questionId = $request->input('questionid');
+           $commentId = $request->input('commentid');
+
+
+            if(empty($questionId || empty($commentId))){
+                return response()->json([
+                    'error'=> 'Question Id and comment Id are required!'
+                ],404);
+            }
+
+            $comments = $this->moodleCommentService->removeCommentQuestion($questionId, $commentId);
+
+            return $comments;
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => 'Server error',
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ], 500);
+        }
+    }
 }

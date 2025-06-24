@@ -26,4 +26,13 @@ class MoodleActionQuestionCommentService extends MoodleBaseService
         return $this->sendRequest($params);
     }
 
+    public function removeCommentQuestion(int $questionId , int $commentId){
+        $params = array_merge($this->getBaseParams(), [
+            'wsfunction' => 'local_idgqbank_remove_comments_question',
+            'questionid' => $questionId,
+            'commentidd' => $commentId,
+        ]);
+        return $this->sendRequest($params);
+    }
+
 }

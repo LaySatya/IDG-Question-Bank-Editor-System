@@ -30,7 +30,7 @@ class MoodleActionQuestionCommentService extends MoodleBaseService
         $params = array_merge($this->getBaseParams(), [
             'wsfunction' => 'local_idgqbank_remove_comments_question',
             'questionid' => $questionId,
-            'commentidd' => $commentId,
+            'commentid' => $commentId,
         ]);
         return $this->sendRequest($params);
     }

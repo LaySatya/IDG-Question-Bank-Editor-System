@@ -224,4 +224,24 @@ class MoodleGetQuestionController extends Controller
         }
     }
 
+    // Preview question
+    public function previewQuestion(Request $request){
+        try {
+            $questionId = $request->input('questionid');
+            if (!$questionId) {
+                return response()->json(['error' => 'Question ID is required'], 400);
+            }
+
+            $preview = $this->moodleGetQuestionService->previewQuestionMode($questionId);
+            return response()->json($preview);
+
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => 'Server error',
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ], 500);
+        }
+    }
+
 }

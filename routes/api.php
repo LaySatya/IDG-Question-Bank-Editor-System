@@ -13,8 +13,10 @@ use App\Http\Controllers\Moodle\Tags\MoodleGetTagController;
 // Public route for login
 Route::post('/users', [MoodleUserController::class, 'login']);
 
+
 // Protected routes
 Route::middleware(['moodle.token'])->group(function () {
+
 
     // User routes
     Route::prefix('users')->controller(MoodleUserController::class)->group(function () {
@@ -23,10 +25,12 @@ Route::middleware(['moodle.token'])->group(function () {
         Route::get('/user-by-username', 'showUserByUsername');
     });
 
+
+
     // GET Question routes
     Route::prefix('questions')->controller(MoodleGetQuestionController::class)->group(function () {
-        // Route::get('/', 'showAllQuestions'); // /questions - without pagination
-        Route::get('/category', 'showAllQuestionsByCategory'); // /questions/category
+        // Route::get('/', 'showAllQuestions');
+        Route::get('/category', 'showAllQuestionsByCategory');
         Route::get('/pagination', 'showAllQuestionPaginations');
         Route::get('/pagination/category', 'showPaginationQuestionsByCategory');
         Route::get('/question', 'showQuestionById');
@@ -35,7 +39,10 @@ Route::middleware(['moodle.token'])->group(function () {
         Route::get('/questions-by-qtype','showQuestionsByQtype');
         Route::get('/filters','fullFilterQuestions');
         Route::get('/history','trackQuestionVersions');
+        Route::get('/preview','previewQuestion');
     });
+
+
 
     // Bulk update questions
     Route::prefix('questions')->controller(MoodleUpdateQuestionController::class)->group(function(){
@@ -46,11 +53,15 @@ Route::middleware(['moodle.token'])->group(function () {
         Route::delete('/bulk-tags','bulkEditRemoveTagsFromQuestions');
     });
 
+
+
     // Question category routes
     Route::prefix('questions')->controller(MoodleGetQuestionCategoryController::class)->group(function () {
         Route::get('/categories', action: 'showAllQuestionCategories');
         Route::get('/question_categories','showQuestionCategoriesByCourse');
     });
+
+
 
      // Course category routes
     Route::prefix('questions')->controller(MoodleGetCourseCategoryController::class)->group(function () {
@@ -59,17 +70,22 @@ Route::middleware(['moodle.token'])->group(function () {
     });
 
 
+
     // Tags routes
     Route::prefix('questions')->controller(MoodleGetTagController::class)->group(function () {
         Route::get('/tags', 'showAllTags');
         Route::get('/tag', 'showTagById');
         Route::get('/question-tags', 'showTagsByQuestionId');
     });
+
+
+
     // Add tags to a question
     Route::prefix('questions')->controller(MoodleActionsQuestionTagsController::class)->group(function () {
         Route::post('tags', 'addTagsToAQuestion');
         Route::delete('tags', 'removeTagsFromAQuestion');
     });
+
 
 
     // Question Comments

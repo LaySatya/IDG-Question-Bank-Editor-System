@@ -18,10 +18,9 @@ class MoodleBaseService
         $url = config('services.moodle.url') . '/webservice/rest/server.php';
 
         try {
-            $response = Http::asForm()
-                ->timeout(10) // seconds
-                ->retry(3, 200) // 3 retries, wait 200ms between
-                ->post($url, $params);
+            $response = Http::asForm()->post($url, $params);
+                // ->timeout(10) // seconds
+                // ->retry(3, 200) // 3 retries, wait 200ms between
 
             if ($response->ok()) {
                 $json = $response->json();

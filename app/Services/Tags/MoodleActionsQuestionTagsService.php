@@ -11,9 +11,10 @@ class MoodleActionsQuestionTagsService extends MoodleBaseService
     // Add tags to a question to moodle
     public function addTagsToQuestion(int $questionId, array $tagIds){
         $params = array_merge($this->getBaseParams(), [
-            'wsfunction' => 'local_idgqbank_add_tags_to_question',
+            'wsfunction' => 'local_idgqbank_bulk_edit_questions_tags',
             'tagids' => $tagIds,
             'questionid' => $questionId,
+            'operation' => 'add',
         ]);
         return $this->sendRequest($params);
     }
@@ -21,9 +22,10 @@ class MoodleActionsQuestionTagsService extends MoodleBaseService
     // Remove tags from a question in moodle
     public function removeTagsFromQuestion(int $questionId, array $tagIds){
         $params = array_merge($this->getBaseParams(), [
-            'wsfunction' => 'local_idgqbank_remove_tags_from_question',
+            'wsfunction' => 'local_idgqbank_bulk_edit_questions_tags',
             'tagids' => $tagIds,
             'questionid' => $questionId,
+            'operation' => 'remove',
         ]);
         return $this->sendRequest($params);
     }

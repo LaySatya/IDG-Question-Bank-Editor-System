@@ -40,6 +40,7 @@ Route::middleware(['moodle.token'])->group(function () {
         Route::get('/filters','fullFilterQuestions');
         Route::get('/history','trackQuestionVersions');
         Route::get('/preview','previewQuestion');
+        Route::get('/preview_moodle_question','previewMoodleQuestionMode');
     });
 
 

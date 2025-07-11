@@ -151,4 +151,29 @@ class MoodleUpdateQuestionController extends Controller
             ], 500);
         }
     }
+
+    // Full edit question Moodle form
+    public function fullEditQuestionMoodleForm(Request $request){
+        try {
+            $questionId = $request->input('questionid');
+            $courseId = $request->input('courseid');
+            $returnUrl = $request->input('returnurl');
+
+            if(empty($questionId) || empty($courseId) || empty($returnUrl)){
+                return response()->json(['error'=> 'questionid, courseid, returnurl are required!'], 400);
+            }
+
+            $form = $this->moodleUpdateQuestionService->fullEditQuestion($questionId, $courseId, $returnUrl);
+            return response()->json($form);
+
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => 'Server error',
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ], 500);
+        }
+    }
+
+
 }

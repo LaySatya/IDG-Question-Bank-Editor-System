@@ -71,4 +71,16 @@ class MoodleUpdateQuestionService extends MoodleBaseService
 
         return $this->sendRequest($params);
     }
+
+    // Full Edit Question Moodle Form
+    public function fullEditQuestion(int $questionId, int $courseId, string $returnUrl)
+    {
+        $params = array_merge($this->getBaseParams(), [
+            'wsfunction' => 'local_idgqbank_edit_form_moodle',
+            'questionid' => $questionId,
+            'courseid' => $courseId,
+            'returnurl' => $returnUrl
+        ]);
+        return $this->sendRequest($params);
+    }
 }

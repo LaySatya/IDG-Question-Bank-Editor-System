@@ -16,7 +16,7 @@ Route::post('/users', [MoodleUserController::class, 'login']);
 
 
 // Protected routes
-Route::middleware(['moodle.token'])->group(function () {
+// Route::middleware(['moodle.token'])->group(function () {
 
 
     // User routes
@@ -101,6 +101,7 @@ Route::middleware(['moodle.token'])->group(function () {
 
     // Tags Management
     Route::prefix('questions')->controller(MoodleTagManagementController::class)->group(function (){
+        // Route::get('/tag_collection', 'showTagCollection');
         Route::get('/manage_tags', 'showAllTags');
         Route::get('/manage_tag', 'showTagById');
         Route::post('/manage_tags', 'createTag');
@@ -108,4 +109,4 @@ Route::middleware(['moodle.token'])->group(function () {
         Route::delete('/manage_tags', 'deleteTag');
     });
 
-});
+// });

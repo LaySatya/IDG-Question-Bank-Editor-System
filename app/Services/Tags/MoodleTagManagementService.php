@@ -32,20 +32,20 @@ class MoodleTagManagementService extends MoodleBaseService
     }
 
     // Create new tag in moodle
-    public function createTag(string $name, string $rawname, ?string $description = null, ?int $isstandard = false)
+    public function createTag(string $name, string $rawname, ?string $description = null)
     {
         $params = array_merge($this->getBaseParams(), [
             'wsfunction' => 'local_idgqbank_manage_create_tags',
             'name' => $name,
             'rawname' => $rawname,
             'description' => $description,
-            'isstandard' => $isstandard,
+            'isstandard' => 0,
         ]);
         return $this->sendRequest($params);
     }
 
     // Update existing tag in moodle
-    public function updateTag(int $tagId, string $rawname, ?string $description = null, ?int $isstandard = 0)
+    public function updateTag(int $tagId, string $rawname, ?string $description = null)
     {
         $params = array_merge($this->getBaseParams(), [
             'wsfunction' => 'core_tag_update_tags',
@@ -56,7 +56,7 @@ class MoodleTagManagementService extends MoodleBaseService
                     'description' => $description,
                     'descriptionformat' => 1, // FORMAT_HTML
                     'flag' => 0,
-                    'isstandard' => $isstandard,
+                    'isstandard' => 0,
                 ]
             ],
         ]);
@@ -64,10 +64,10 @@ class MoodleTagManagementService extends MoodleBaseService
     }
 
     // Delete tag in moodle
-    public function deleteTag(int $tagId){
+    public function deleteTag(array $tagIds){
         $params = array_merge($this->getBaseParams(), [
             'wsfunction' => 'core_tag_delete_tags',
-            'tagids' => [$tagId],
+            'tagids' => $tagIds,
         ]);
         return $this->sendRequest($params);
     }

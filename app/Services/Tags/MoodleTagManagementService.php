@@ -66,7 +66,7 @@ class MoodleTagManagementService extends MoodleBaseService
     // Delete tag in moodle
     public function deleteTag(array $tagIds){
         $params = array_merge($this->getBaseParams(), [
-            'wsfunction' => 'core_tag_delete_tags',
+            'wsfunction' => 'local_idgqbank_manage_remove_tags',
             'tagids' => $tagIds,
         ]);
         return $this->sendRequest($params);

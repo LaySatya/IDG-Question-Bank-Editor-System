@@ -83,10 +83,10 @@ Route::middleware(['moodle.token'])->group(function () {
 
 
 
-    // Add tags to a question
+    // Add-remove tags to-from a question
     Route::prefix('questions')->controller(MoodleActionsQuestionTagsController::class)->group(function () {
-        Route::post('tags', 'addTagsToAQuestion');
-        Route::delete('tags', 'removeTagsFromAQuestion');
+        Route::post('/tags', 'addTagsToAQuestion');
+        Route::delete('/tags', 'removeTagsFromAQuestion');
     });
 
 
@@ -101,11 +101,11 @@ Route::middleware(['moodle.token'])->group(function () {
 
     // Tags Management
     Route::prefix('questions')->controller(MoodleTagManagementController::class)->group(function (){
-        Route::get('/', 'showAllTags');
-        // Route::get('/tag', 'showTagById');
-        // Route::post('/', 'createTag');
-        // Route::put('/', 'updateTag');
-        // Route::delete('/', 'deleteTag');
+        Route::get('/manage_tags', 'showAllTags');
+        Route::get('/manage_tag', 'showTagById');
+        Route::post('/manage_tags', 'createTag');
+        // Route::put('/tags', 'updateTag');
+        // Route::delete('/tags', 'deleteTag');
     });
 
 });

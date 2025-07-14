@@ -17,14 +17,4 @@ class MoodleTagManagementService extends MoodleBaseService
         return $this->sendRequest($params);
     }
 
-    // Get tag by tag id from moodle
-    public function getTagById(array $tagIds){
-        $tags = array_map(fn($id) => ['id' => $id], $tagIds); // Wrap as expected
-
-        $params = array_merge($this->getBaseParams(), [
-            'wsfunction' => 'core_tag_get_tags',
-            'tags' => $tags,
-        ]);
-        return $this->sendRequest($params);
-    }
 }

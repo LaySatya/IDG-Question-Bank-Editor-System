@@ -39,4 +39,23 @@ class MoodleTagManagementService extends MoodleBaseService
         ]);
         return $this->sendRequest($params);
     }
+
+    // Update existing tag in moodle
+    public function updateTag(int $tagId, string $rawname, ?string $description = null, ?int $isstandard = 0) {
+    $params = array_merge($this->getBaseParams(), [
+        'wsfunction' => 'core_tag_update_tags',
+        'tags' => [
+            [
+                'id' => $tagId,
+                'rawname' => $rawname,
+                'description' => $description,
+                'descriptionformat' => 1, // FORMAT_HTML
+                'flag' => 0,
+                'isstandard' => $isstandard,
+            ]
+        ],
+    ]);
+    return $this->sendRequest($params);
+}
+
 }

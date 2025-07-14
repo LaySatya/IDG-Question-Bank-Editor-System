@@ -75,4 +75,27 @@ class MoodleTagManagementController extends Controller
             ], 500);
         }
     }
+
+    // Update existing tag
+    public function updateTag(Request $request){
+        try {
+            $tagId = $request->input('id');
+            $rawname = $request->input('rawname');
+            $description = $request->input('description', null);
+            $isstandard = $request->input('isstandard', 0);
+
+            if (!$tagId || !$rawname) {
+                return response()->json(['error' => 'Tag ID and rawname are required'], 400);
+            }
+
+            $result = $this->moodleTagManagementService->updateTag($tagId, $rawname, $description, $isstandard);
+            return response()->json($result);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => 'Server error',
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ], 500);
+        }
+    }
 }

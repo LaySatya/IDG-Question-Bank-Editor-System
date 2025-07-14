@@ -9,6 +9,7 @@ use App\Http\Controllers\Moodle\Questions\MoodleGetQuestionController;
 use App\Http\Controllers\Moodle\Questions\MoodleUpdateQuestionController;
 use App\Http\Controllers\Moodle\Tags\MoodleActionsQuestionTagsController;
 use App\Http\Controllers\Moodle\Tags\MoodleGetTagController;
+use App\Http\Controllers\Moodle\Tags\MoodleTagManagementController;
 
 // Public route for login
 Route::post('/users', [MoodleUserController::class, 'login']);
@@ -95,6 +96,16 @@ Route::middleware(['moodle.token'])->group(function () {
         Route::get('/comments', 'showQuestionComments');
         Route::post('/comments', 'addCommentQuestion');
         Route::delete('/comments','removeCommentQuestion');
+    });
+
+
+    // Tags Management
+    Route::prefix('questions')->controller(MoodleTagManagementController::class)->group(function (){
+        Route::get('/', 'showAllTags');
+        // Route::get('/tag', 'showTagById');
+        // Route::post('/', 'createTag');
+        // Route::put('/', 'updateTag');
+        // Route::delete('/', 'deleteTag');
     });
 
 });

@@ -29,6 +29,8 @@ class MoodleUserController extends Controller
                 // $token = Str::random(60);
                 $token = $result['token']; // Use the token from the result
                 // Store token and user info in cache for 2 hours
+
+                // put real token
                 Cache::put('moodle_token_' . $token, [
                     'username' => $username,
                     // Add more user info if needed

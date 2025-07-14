@@ -101,7 +101,7 @@ Route::post('/users', [MoodleUserController::class, 'login']);
 
     // Tags Management
     Route::prefix('questions')->controller(MoodleTagManagementController::class)->group(function (){
-        // Route::get('/tag_collection', 'showTagCollection');
+        Route::get('/tag_collection', 'showTagCollections');
         Route::get('/manage_tags', 'showAllTags');
         Route::get('/manage_tag', 'showTagById');
         Route::post('/manage_tags', 'createTag');

@@ -71,4 +71,12 @@ class MoodleTagManagementService extends MoodleBaseService
         ]);
         return $this->sendRequest($params);
     }
+
+    // Get tag collections in moodle
+    public function getTagCollections(){
+        $params = array_merge($this->getBaseParams(), [
+            'wsfunction' => 'core_tag_get_tag_collections',
+        ]);
+        return $this->sendRequest($params);
+    }
 }

@@ -117,4 +117,19 @@ class MoodleTagManagementController extends Controller
             ], 500);
         }
     }
+
+    // Show tag collections
+    public function showTagCollections(){
+        try {
+            $result = $this->moodleTagManagementService->getTagCollections();
+            return response()->json($result);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => 'Server error',
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ], 500);
+        }
+    }
+
 }

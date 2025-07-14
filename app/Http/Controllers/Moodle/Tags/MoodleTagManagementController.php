@@ -98,4 +98,23 @@ class MoodleTagManagementController extends Controller
             ], 500);
         }
     }
+
+    // Delete tag
+    public function deleteTag(Request $request){
+        try {
+            $tagIds = $request->input('tagids', []);
+            if (empty($tagIds) || !is_array($tagIds)) {
+                return response()->json(['error' => 'Invalid tag ID'], 400);
+            }
+
+            $result = $this->moodleTagManagementService->deleteTag($tagIds);
+            return response()->json($result);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => 'Server error',
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ], 500);
+        }
+    }
 }

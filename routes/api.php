@@ -105,7 +105,7 @@ Route::middleware(['moodle.token'])->group(function () {
         Route::get('/manage_tag', 'showTagById');
         Route::post('/manage_tags', 'createTag');
         Route::put('/manage_tags', 'updateTag');
-        // Route::delete('/tags', 'deleteTag');
+        Route::delete('/manage_tags', 'deleteTag');
     });
 
 });

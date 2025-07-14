@@ -24,9 +24,10 @@ class MoodleUserController extends Controller
             $result = $moodleUserService->loginUser($username, $password);
 
             // Check if login was successful (adjust this check based on your actual response)
-            if (isset($result['status']) && $result['status']) {
+            if (isset($result['status']) && $result['status'] && $result['token']) {
                 // Generate a token
-                $token = Str::random(60);
+                // $token = Str::random(60);
+                $token = $result['token']; // Use the token from the result
                 // Store token and user info in cache for 2 hours
                 Cache::put('moodle_token_' . $token, [
                     'username' => $username,

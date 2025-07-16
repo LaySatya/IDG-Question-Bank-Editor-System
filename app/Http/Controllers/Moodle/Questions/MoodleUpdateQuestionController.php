@@ -157,13 +157,13 @@ class MoodleUpdateQuestionController extends Controller
         try {
             $questionId = $request->input('questionid');
             $courseId = $request->input('courseid');
-            $returnUrl = $request->input('returnurl');
+            // $returnUrl = $request->input('returnurl');
 
-            if(empty($questionId) || empty($courseId) || empty($returnUrl)){
-                return response()->json(['error'=> 'questionid, courseid, returnurl are required!'], 400);
+            if(empty($questionId)){
+                return response()->json(['error'=> 'questionid is required!'], 400);
             }
 
-            $form = $this->moodleUpdateQuestionService->fullEditQuestion($questionId, $courseId, $returnUrl);
+            $form = $this->moodleUpdateQuestionService->fullEditQuestion($questionId, $courseId);
             return response()->json($form);
 
         } catch (\Throwable $e) {

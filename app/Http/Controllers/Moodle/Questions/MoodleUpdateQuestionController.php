@@ -220,5 +220,27 @@ class MoodleUpdateQuestionController extends Controller
         }
     }
 
+     // Delete question - All versions
+    public function deleteQuestionsSpecificVersions(Request $request){
+        try {
+            $questionId = $request->input('questionid');
+            $deleteallversions = $request->input('deleteallversions', false);
+
+            if (empty($questionId) || !is_array($questionId)) {
+                return response()->json(['error' => 'Invalid question ID'], 400);
+            }
+
+            $result = $this->moodleUpdateQuestionService->bulkDeleteQuestionsSpecificVersions($questionId, $deleteallversions);
+
+            return response()->json($result);
+
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => 'Server error',
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ], 500);
+        }
+    }
 
 }

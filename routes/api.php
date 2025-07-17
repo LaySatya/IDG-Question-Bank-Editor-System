@@ -56,7 +56,7 @@ Route::post('/users', [MoodleUserController::class, 'login']);
         Route::get('/full_edit_moodle_form', 'fullEditQuestionMoodleForm');
         Route::get('/duplicate_moodle_form', 'duplicateQuestionMoodleForm');
         Route::delete('/delete_all_versions', 'deleteQuestionAllVersions');
-
+        Route::delete('/delete_specific_versions', 'deleteQuestionsSpecificVersions');
     });
 
 

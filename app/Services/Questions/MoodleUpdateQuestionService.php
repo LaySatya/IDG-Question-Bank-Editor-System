@@ -95,7 +95,18 @@ class MoodleUpdateQuestionService extends MoodleBaseService
     }
 
     // Bulk delete questions - All versions
-    public function bulkDeleteQuestions(array $questionIds , bool $deleteAllVersions = true)
+    public function bulkDeleteQuestionsAllVersions(array $questionIds , bool $deleteAllVersions = true)
+    {
+        $params = array_merge($this->getBaseParams(), [
+            'wsfunction' => 'local_idgqbank_bulk_delete_questions',
+            'questionids' => $questionIds,
+            'deleteallversions' => $deleteAllVersions,
+        ]);
+
+        return $this->sendRequest($params);
+    }
+    // Bulk delete questions - Specific versions
+    public function bulkDeleteQuestionsSpecificVersions(array $questionIds , bool $deleteAllVersions = false)
     {
         $params = array_merge($this->getBaseParams(), [
             'wsfunction' => 'local_idgqbank_bulk_delete_questions',

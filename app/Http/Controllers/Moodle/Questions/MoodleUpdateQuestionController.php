@@ -207,7 +207,7 @@ class MoodleUpdateQuestionController extends Controller
                 return response()->json(['error' => 'Invalid question ID'], 400);
             }
 
-            $result = $this->moodleUpdateQuestionService->bulkDeleteQuestions($questionId, $deleteallversions);
+            $result = $this->moodleUpdateQuestionService->bulkDeleteQuestionsAllVersions($questionId, $deleteallversions);
 
             return response()->json($result);
 

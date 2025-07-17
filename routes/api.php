@@ -16,7 +16,7 @@ Route::post('/users', [MoodleUserController::class, 'login']);
 
 
 // Protected routes
-Route::middleware(['moodle.token'])->group(function () {
+// Route::middleware(['moodle.token'])->group(function () {
 
 
     // User routes
@@ -55,6 +55,8 @@ Route::middleware(['moodle.token'])->group(function () {
         Route::delete('/bulk-tags','bulkEditRemoveTagsFromQuestions');
         Route::get('/full_edit_moodle_form', 'fullEditQuestionMoodleForm');
         Route::get('/duplicate_moodle_form', 'duplicateQuestionMoodleForm');
+        Route::delete('/delete_all_versions', 'deleteQuestionAllVersions');
+
     });
 
 
@@ -110,4 +112,4 @@ Route::middleware(['moodle.token'])->group(function () {
         Route::delete('/manage_tags', 'deleteTag');
     });
 
-});
+// });

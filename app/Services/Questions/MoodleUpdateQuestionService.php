@@ -82,4 +82,15 @@ class MoodleUpdateQuestionService extends MoodleBaseService
         ]);
         return $this->sendRequest($params);
     }
+
+    // Duplicate question Moodle Form
+    public function duplicateQuestionMoodle(int $questionId, ?int $courseId)
+    {
+        $params = array_merge($this->getBaseParams(), [
+            'wsfunction' => 'local_idgqbank_duplicate_form_moodle',
+            'questionid' => $questionId,
+            'courseid' => $courseId,
+        ]);
+        return $this->sendRequest($params);
+    }
 }

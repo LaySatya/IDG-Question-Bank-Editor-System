@@ -175,5 +175,27 @@ class MoodleUpdateQuestionController extends Controller
         }
     }
 
+    // Duplicate question Moodle form
+    public function duplicateQuestionMoodleForm(Request $request){
+        try {
+            $questionId = $request->input('questionid');
+            $courseId = $request->input('courseid');
+
+            if(empty($questionId)){
+                return response()->json(['error'=> 'questionid is required!'], 400);
+            }
+
+            $form = $this->moodleUpdateQuestionService->duplicateQuestionMoodle($questionId, $courseId);
+            return response()->json($form);
+
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => 'Server error',
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ], 500);
+        }
+    }
+
 
 }

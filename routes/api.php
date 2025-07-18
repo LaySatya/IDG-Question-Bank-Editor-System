@@ -24,6 +24,7 @@ Route::post('/users', [MoodleUserController::class, 'login']);
         Route::get('/','showAllUsers');
         Route::get('/user-role', 'showUsersByRole');
         Route::get('/user-by-username', 'showUserByUsername');
+        Route::get('/roles', 'showAllRoles');
     });
 
 

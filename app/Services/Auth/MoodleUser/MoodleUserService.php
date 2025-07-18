@@ -58,4 +58,12 @@ class MoodleUserService extends MoodleBaseService
         ]);
         return $this->sendRequest($params);
     }
+
+    // Get all roles from Moodle
+    public function getAllRoles(){
+        $params = array_merge($this->getBaseParams(), [
+            'wsfunction' => 'local_idgqbank_get_all_roles',
+        ]);
+        return $this->sendRequest($params);
+    }
 }

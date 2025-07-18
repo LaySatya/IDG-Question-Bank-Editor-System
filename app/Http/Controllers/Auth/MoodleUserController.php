@@ -107,4 +107,18 @@ class MoodleUserController extends Controller
         }
     }
 
+    // Show all roles
+      public function showAllRoles(Request $request, MoodleUserService $moodleUserService){
+        try {
+            $users = $moodleUserService->getAllRoles();
+            return $users;
+        } catch (\Throwable $e) {
+            return response()->json([
+                  'error' => 'Server error',
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ], 500);
+        }
+    }
+
 }

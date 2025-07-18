@@ -35,13 +35,13 @@ class MoodleGetQuestionCategoryController extends Controller
     // Show question categories by course
     public function showQuestionCategoriesByCourse(Request $request){
         try {
-            $courseId = $request->input('courseid');
+            $courseId = $request->input('courseid' , 0);
 
-            if(empty($courseId)){
-                return response()->json([
-                    'error'=> 'Course Id is required!'
-                ],404);
-            }
+            // if(empty($courseId)){
+            //     return response()->json([
+            //         'error'=> 'Course Id is required!'
+            //     ],404);
+            // }
 
             $questionCategories = $this->moodleGetQuestionCategoryService->getQuestionCategoriesByCourse($courseId);
 

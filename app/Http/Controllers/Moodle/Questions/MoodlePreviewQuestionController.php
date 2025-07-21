@@ -57,6 +57,26 @@ class MoodlePreviewQuestionController extends Controller
         }
     }
 
+    // Preview question in a category in real moodle
+    public function previewQuestionsInCategory(Request $request){
+        try {
+            $categoryId = $request->input('categoryid');
+            $start = $request->input('start', 0);
+            if (!$categoryId) {
+                return response()->json(['error' => 'Category ID is required'], 400);
+            }
+
+            $preview = $this->moodlePreviewQuestionService->previewQuestionsInCategory($categoryId, $start);
+            return response()->json($preview);
+
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => 'Server error',
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ], 500);
+        }
+    }
 
     // Import question mode in real moodle
     public function importQuestionsMoodle(Request $request){

@@ -41,9 +41,6 @@ Route::post('/users', [MoodleUserController::class, 'login']);
         Route::get('/questions-by-qtype','showQuestionsByQtype');
         Route::get('/filters','fullFilterQuestions');
         Route::get('/history','trackQuestionVersions');
-        Route::get('/preview','previewQuestion');
-        Route::get('/preview_moodle_question','previewMoodleQuestionMode');
-        Route::get('/import', 'importQuestionsMoodle');
     });
 
     // Preview questions
@@ -51,6 +48,7 @@ Route::post('/users', [MoodleUserController::class, 'login']);
         Route::get('/preview','previewQuestion');
         Route::get('/preview_moodle_question','previewMoodleQuestionMode');
         Route::get('/import', 'importQuestionsMoodle');
+        Route::get('/multi_preview', 'previewQuestionsInCategory');
     });
 
 

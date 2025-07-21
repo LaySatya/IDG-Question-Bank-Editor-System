@@ -262,5 +262,27 @@ class MoodleGetQuestionController extends Controller
             ], 500);
         }
     }
+    // Import question mode in real moodle
+    public function importQuestionsMoodle(Request $request){
+        try {
+            $categoryId = $request->input('categoryid');
+            $contextId = $request->input('contextid');
+            $courseId = $request->input('courseid' , 0);
+
+            // if (!$categoryId & !$contextId) {
+            //     return response()->json(['error' => 'Question ID is required'], 400);
+            // }
+
+            $import = $this->moodleGetQuestionService->importQuestions($categoryId, $contextId, $courseId);
+            return response()->json($import);
+
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => 'Server error',
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ], 500);
+        }
+    }
 
 }

@@ -42,6 +42,7 @@ Route::post('/users', [MoodleUserController::class, 'login']);
         Route::get('/history','trackQuestionVersions');
         Route::get('/preview','previewQuestion');
         Route::get('/preview_moodle_question','previewMoodleQuestionMode');
+        Route::get('/import', 'importQuestionsMoodle');
     });
 
 

@@ -137,5 +137,16 @@ class MoodleGetQuestionService extends MoodleBaseService
         return $this->sendRequest($params);
     }
 
+     // Import question mode in real moodle
+    public function importQuestions(int $categoryId, int $contextId, ?int $courseId){
+        $params = array_merge($this->getBaseParams(), [
+            'wsfunction' => 'local_idgqbank_import_moodle_form',
+            'categoryid' => $categoryId,
+            'contextid' => $contextId,
+            'courseid' => $courseId
+        ]);
+        return $this->sendRequest($params);
+    }
+
 
 }

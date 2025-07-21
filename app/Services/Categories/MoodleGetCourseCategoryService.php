@@ -24,5 +24,16 @@ class MoodleGetCourseCategoryService extends MoodleBaseService
         return $this->sendRequest($params);
     }
 
+    // Get all courses from moodle - Pagination
+    public function getPaginationCourses(?int $page, ?int $perPage){
+        $params = array_merge($this->getBaseParams(), [
+            'wsfunction' => 'local_idgqbank_get_all_pagination_courses',
+            'page' => $page,
+            'perpage' => $perPage
+        ]);
+        return $this->sendRequest($params);
+    }
+
+
 
 }

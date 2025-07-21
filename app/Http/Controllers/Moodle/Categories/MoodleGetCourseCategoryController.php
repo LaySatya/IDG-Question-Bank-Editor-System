@@ -51,4 +51,22 @@ class MoodleGetCourseCategoryController extends Controller
             ], 500);
         }
     }
+
+    // Get all courses from Moodle - Pagination
+    public function showAllCourses(Request $request){
+        try{
+            $page = $request->input('page' , 0);
+            $perPage = $request->input('perpage', 10);
+
+            $courses = $this->moodleGetCourseCategoryService->getPaginationCourses($page , $perPage);
+            return $courses;
+
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => 'Server error',
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ], 500);
+        }
+    }
 }

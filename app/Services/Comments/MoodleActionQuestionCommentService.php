@@ -14,6 +14,8 @@ class MoodleActionQuestionCommentService extends MoodleBaseService
         ]);
         return $this->sendRequest($params);
     }
+
+    // Add comments
     public function addCommentQuestion(int $questionId, string $content, ?int $userId, ?int $format){
         $params = array_merge($this->getBaseParams(), [
             'wsfunction' => 'local_idgqbank_add_comments_question',
@@ -25,6 +27,7 @@ class MoodleActionQuestionCommentService extends MoodleBaseService
         return $this->sendRequest($params);
     }
 
+    // Remove comments
     public function removeCommentQuestion(int $questionId , int $commentId){
         $params = array_merge($this->getBaseParams(), [
             'wsfunction' => 'local_idgqbank_remove_comments_question',

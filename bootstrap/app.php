@@ -24,7 +24,6 @@ return Application::configure(basePath: dirname(__DIR__))
             'moodle.token' => MoodleAuthMiddleware::class,
         ]);
 
-      
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

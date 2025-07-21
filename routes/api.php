@@ -28,7 +28,6 @@ Route::post('/users', [MoodleUserController::class, 'login']);
     });
 
 
-
     // GET Question routes
     Route::prefix('questions')->controller(MoodleGetQuestionController::class)->group(function () {
         // Route::get('/', 'showAllQuestions');

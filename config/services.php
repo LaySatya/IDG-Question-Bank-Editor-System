@@ -34,6 +34,8 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+
+    // ​​Moodle Service
     'moodle' => [
         'url' => env('MOODLE_URL'),
         'token' => env('MOODLE_TOKEN'),

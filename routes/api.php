@@ -6,6 +6,7 @@ use App\Http\Controllers\Moodle\Categories\MoodleGetCourseCategoryController;
 use App\Http\Controllers\Moodle\Categories\MoodleGetQuestionCategoryController;
 use App\Http\Controllers\Moodle\Comments\MoodleActionQuestionCommentController;
 use App\Http\Controllers\Moodle\Questions\MoodleGetQuestionController;
+use App\Http\Controllers\Moodle\Questions\MoodlePreviewQuestionController;
 use App\Http\Controllers\Moodle\Questions\MoodleUpdateQuestionController;
 use App\Http\Controllers\Moodle\Tags\MoodleActionsQuestionTagsController;
 use App\Http\Controllers\Moodle\Tags\MoodleGetTagController;
@@ -40,6 +41,13 @@ Route::post('/users', [MoodleUserController::class, 'login']);
         Route::get('/questions-by-qtype','showQuestionsByQtype');
         Route::get('/filters','fullFilterQuestions');
         Route::get('/history','trackQuestionVersions');
+        Route::get('/preview','previewQuestion');
+        Route::get('/preview_moodle_question','previewMoodleQuestionMode');
+        Route::get('/import', 'importQuestionsMoodle');
+    });
+
+    // Preview questions
+    Route::prefix('questions')->controller(MoodlePreviewQuestionController::class)->group(function () {
         Route::get('/preview','previewQuestion');
         Route::get('/preview_moodle_question','previewMoodleQuestionMode');
         Route::get('/import', 'importQuestionsMoodle');

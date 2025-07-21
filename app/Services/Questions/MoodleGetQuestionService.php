@@ -119,34 +119,4 @@ class MoodleGetQuestionService extends MoodleBaseService
         return $this->sendRequest($params);
     }
 
-    // Preview question
-    public function previewQuestionMode(int $questionId){
-        $params = array_merge($this->getBaseParams(), [
-            'wsfunction' => 'local_idgqbank_preview_question',
-            'questionid' => $questionId,
-        ]);
-        return $this->sendRequest($params);
-    }
-
-    // Preveiw question mode in real moodle
-    public function previewMoodleQuestionMode(int $questionId){
-        $params = array_merge($this->getBaseParams(), [
-            'wsfunction' => 'local_idgqbank_preview_question_via_url',
-            'questionid' => $questionId,
-        ]);
-        return $this->sendRequest($params);
-    }
-
-     // Import question mode in real moodle
-    public function importQuestions(int $categoryId, int $contextId, ?int $courseId){
-        $params = array_merge($this->getBaseParams(), [
-            'wsfunction' => 'local_idgqbank_import_moodle_form',
-            'categoryid' => $categoryId,
-            'contextid' => $contextId,
-            'courseid' => $courseId
-        ]);
-        return $this->sendRequest($params);
-    }
-
-
 }

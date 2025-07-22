@@ -29,11 +29,13 @@ class MoodleUserService extends MoodleBaseService
     }
 
     // Get user by role
-    public function getUserByRole(string $rolename)
+    public function getUserByRole(string $rolename , ?int $page, ?int $perPage)
     {
         $params = array_merge($this->getBaseParams(), [
             'wsfunction' => 'local_idgqbank_get_users_by_role',
             'rolename' => $rolename,
+            'page' => $page,
+            'perpage' => $perPage
         ]);
         return $this->sendRequest($params);
     }

@@ -57,10 +57,13 @@ class MoodleUserController extends Controller
     {
         try {
             $rolename = $request->input('rolename');
+            $page = $request->input('page');
+            $perPage = $request->input('perpage' , 10);
+
             if (!$rolename) {
-                return response()->json(['error' => 'Role is required'], 400);
+                return response()->json(['error' => 'Role name is required'], 400);
             }
-            $users = $moodleUserService->getUserByRole($rolename);
+            $users = $moodleUserService->getUserByRole($rolename, $page, $perPage);
             return $users;
 
         } catch (\Throwable $e) {

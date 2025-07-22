@@ -85,9 +85,9 @@ class MoodlePreviewQuestionController extends Controller
             $contextId = $request->input('contextid');
             $courseId = $request->input('courseid' , 0);
 
-            // if (!$categoryId & !$contextId) {
-            //     return response()->json(['error' => 'Question ID is required'], 400);
-            // }
+            if (!$categoryId & !$contextId) {
+                return response()->json(['error' => 'Category and context Id are required'], 400);
+            }
 
             $import = $this->moodlePreviewQuestionService->importQuestions($categoryId, $contextId, $courseId);
             return response()->json($import);

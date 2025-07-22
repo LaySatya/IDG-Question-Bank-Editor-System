@@ -37,10 +37,10 @@ class MoodlePreviewQuestionService extends MoodleBaseService
      // Import question mode in real moodle
     public function importQuestions(int $categoryId, int $contextId, ?int $courseId){
         $params = array_merge($this->getBaseParams(), [
-            'wsfunction' => 'local_idgqbank_import_moodle_form',
+            'wsfunction' => 'local_idgqbank_import_form_moodle',
             'categoryid' => $categoryId,
             'contextid' => $contextId,
-            'courseid' => $courseId
+            'cmid' => $courseId
         ]);
         return $this->sendRequest($params);
     }

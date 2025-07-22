@@ -34,6 +34,21 @@ class MoodleGetCourseCategoryService extends MoodleBaseService
         return $this->sendRequest($params);
     }
 
+    // Search courses
+    public function searchCourses($criteriaName, $criteriaValue, ?int $page, ?int $perPage){
+        $params = array_merge($this->getBaseParams(), [
+            'wsfunction' => 'core_course_search_courses',
+            'criterianame' => $criteriaName,
+            'criteriavalue' => $criteriaValue,
+            'page' => $page,
+            'perpage' => $perPage
+        ]);
+        return $this->sendRequest($params);
+    }
+
+
+
+
 
 
 }

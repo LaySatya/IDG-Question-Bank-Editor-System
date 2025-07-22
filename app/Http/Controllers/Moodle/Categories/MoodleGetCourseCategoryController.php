@@ -69,4 +69,28 @@ class MoodleGetCourseCategoryController extends Controller
             ], 500);
         }
     }
+    // Get all courses from Moodle - Pagination
+    public function searchCourses(Request $request){
+        try{
+            $criteriaName = $request->input('criterianame', 'search');
+            $criteriaValue = $request->input('criteriavalue');
+            if(empty($criteriaValue)){
+                return response()->json([
+                    'message' => 'Value is required!',
+                ] ,404);
+            }
+            $page = $request->input('page' , 0);
+            $perPage = $request->input('perpage', 10);
+
+            $courses = $this->moodleGetCourseCategoryService->searchCourses($criteriaName , $criteriaValue,$page , $perPage , );
+            return $courses;
+
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => 'Server error',
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ], 500);
+        }
+    }
 }

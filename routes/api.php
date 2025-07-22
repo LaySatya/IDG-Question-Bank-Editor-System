@@ -81,6 +81,7 @@ Route::post('/users', [MoodleUserController::class, 'login']);
         Route::get('/course-categories', 'showAllCourseCategories');
         Route::get('/courses','showCoursesByCategory');
         Route::get('/allcourses', 'showAllCourses');
+        Route::get('/searchcourses', 'searchCourses');
     });
 
 

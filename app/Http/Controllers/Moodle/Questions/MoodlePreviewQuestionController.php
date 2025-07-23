@@ -100,4 +100,26 @@ class MoodlePreviewQuestionController extends Controller
             ], 500);
         }
     }
+
+    // Question overview in category
+    public function questionOverview(Request $request){
+        try {
+            $categoryId = $request->input('categoryid');
+
+            if (!$categoryId) {
+                return response()->json(['error' => 'Category Id is required'], 400);
+            }
+
+            $import = $this->moodlePreviewQuestionService->questionOverview($categoryId);
+            return response()->json($import);
+
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => 'Server error',
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ], 500);
+        }
+    }
+
 }

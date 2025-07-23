@@ -49,6 +49,7 @@ Route::post('/users', [MoodleUserController::class, 'login']);
         Route::get('/preview_moodle_question','previewMoodleQuestionMode');
         Route::get('/import', 'importQuestionsMoodle');
         Route::get('/multi_preview', 'previewQuestionsInCategory');
+        Route::get('/overview','questionOverview');
     });
 
 

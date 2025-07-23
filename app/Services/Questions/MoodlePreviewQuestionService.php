@@ -45,5 +45,13 @@ class MoodlePreviewQuestionService extends MoodleBaseService
         return $this->sendRequest($params);
     }
 
+    // Question overview in category
+    public function questionOverview(int $categoryId){
+        $params = array_merge($this->getBaseParams(), [
+            'wsfunction' => 'local_idgqbank_question_overview',
+            'categoryid' => $categoryId,
+        ]);
+        return $this->sendRequest($params);
+    }
 
 }

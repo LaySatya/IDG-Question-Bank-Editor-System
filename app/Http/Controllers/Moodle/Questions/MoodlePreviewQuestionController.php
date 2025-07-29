@@ -101,6 +101,29 @@ class MoodlePreviewQuestionController extends Controller
         }
     }
 
+    // Export question mode in real moodle
+    public function exportQuestionsMoodle(Request $request){
+        try {
+            $categoryId = $request->input('categoryid');
+            $contextId = $request->input('contextid');
+            $courseId = $request->input('courseid', 0);
+
+            if (!$categoryId || !$contextId) {
+                return response()->json(['error' => 'Category and context Id are required'], 400);
+            }
+
+            $export = $this->moodlePreviewQuestionService->exportQuestions($categoryId, $contextId, $courseId);
+            return response()->json($export);
+
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => 'Server error',
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ], 500);
+        }
+    }
+
     // Question overview in category
     public function questionOverview(Request $request){
         try {

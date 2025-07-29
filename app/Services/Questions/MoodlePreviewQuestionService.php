@@ -45,6 +45,17 @@ class MoodlePreviewQuestionService extends MoodleBaseService
         return $this->sendRequest($params);
     }
 
+    // Export question mode in real moodle
+   public function exportQuestions(int $categoryId, int $contextId, ?int $courseId){
+        $params = array_merge($this->getBaseParams(), [
+            'wsfunction' => 'local_idgqbank_export',
+            'categoryid' => $categoryId,
+            'contextid' => $contextId,
+            'cmid' => $courseId
+        ]);
+        return $this->sendRequest($params);
+    }
+
     // Question overview in category
     public function questionOverview(int $categoryId){
         $params = array_merge($this->getBaseParams(), [

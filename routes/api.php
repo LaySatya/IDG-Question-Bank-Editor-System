@@ -51,6 +51,7 @@ Route::post('/users', [MoodleUserController::class, 'login']);
         Route::get('/multi_preview', 'previewQuestionsInCategory');
         Route::get('/export', 'exportQuestionsMoodle');
         Route::get('/overview','questionOverview');
+        Route::get('/create', 'addNewQuestion');
     });
 
 

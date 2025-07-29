@@ -145,4 +145,27 @@ class MoodlePreviewQuestionController extends Controller
         }
     }
 
+    // Add new question in real moodle
+    public function addNewQuestion(Request $request){
+        try {
+            $qtype = $request->input('qtype');
+            $categoryId = $request->input('categoryid');
+            $contextId = $request->input('contextid');
+
+            if (!$qtype || !$categoryId || !$contextId) {
+                return response()->json(['error' => 'Question type, category Id and context Id are required'], 400);
+            }
+
+            $newQuestion = $this->moodlePreviewQuestionService->addNewQuestion($qtype, $categoryId, $contextId);
+            return response()->json($newQuestion);
+
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => 'Server error',
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ], 500);
+        }
+    }
+
 }

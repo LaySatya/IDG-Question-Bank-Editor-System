@@ -65,4 +65,17 @@ class MoodlePreviewQuestionService extends MoodleBaseService
         return $this->sendRequest($params);
     }
 
+
+    // Add new question in real moodle
+    public function addNewQuestion(string $qtype, int $categoryId, int $contextId){
+        $params = array_merge($this->getBaseParams(), [
+            'wsfunction' => 'local_idgqbank_create_question',
+            'qtype' => $qtype,
+            'categoryid' => $categoryId,
+            'contextid' => $contextId
+        ]);
+
+        return $this->sendRequest($params);
+    }
+
 }

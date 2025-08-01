@@ -243,4 +243,32 @@ class MoodleUpdateQuestionController extends Controller
         }
     }
 
+    // Move question to another category
+    public function moveQuestionToCategory(Request $request){
+        try {
+            $questionIds = $request->input('questionids', []);
+            $sourceCategoryId = $request->input('sourcecategoryid');
+            $targetCategoryId = $request->input('targetcategoryid');
+
+            if (empty($questionIds) || !is_array($questionIds)) {
+                return response()->json(['error' => 'Invalid question IDs'], 400);
+            }
+
+            if (empty($sourceCategoryId) || empty($targetCategoryId)) {
+                return response()->json(['error' => 'Source and target category IDs are required'], 400);
+            }
+
+            $result = $this->moodleUpdateQuestionService->moveQuestionToCategory($questionIds, $sourceCategoryId, $targetCategoryId);
+
+            return response()->json($result);
+
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => 'Server error',
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ], 500);
+        }
+    }
+
 }

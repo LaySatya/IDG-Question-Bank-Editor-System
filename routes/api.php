@@ -67,6 +67,7 @@ Route::post('/users', [MoodleUserController::class, 'login']);
         Route::get('/duplicate_moodle_form', 'duplicateQuestionMoodleForm');
         Route::delete('/delete_all_versions', 'deleteQuestionAllVersions');
         Route::delete('/delete_specific_versions', 'deleteQuestionsSpecificVersions');
+        Route::put('/move', 'moveQuestionToCategory');
     });
 
 

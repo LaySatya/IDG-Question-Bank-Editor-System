@@ -116,4 +116,16 @@ class MoodleUpdateQuestionService extends MoodleBaseService
 
         return $this->sendRequest($params);
     }
+
+    // Move question to another category
+    public function moveQuestionToCategory(array $questionIds, int $sourceCategoryId, int $targetCategoryId){
+        $params = array_merge($this->getBaseParams(), [
+            'wsfunction' => 'local_idgqbank_move_questions',
+            'questionids' => $questionIds,
+            'sourcecategoryid' => $sourceCategoryId,
+            'targetcategoryid' => $targetCategoryId,
+        ]);
+
+        return $this->sendRequest($params);
+    }
 }

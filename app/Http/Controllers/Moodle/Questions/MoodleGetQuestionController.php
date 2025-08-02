@@ -187,13 +187,14 @@ class MoodleGetQuestionController extends Controller
             $qtype = $request->input('qtype');
             $status = $request->input('status');
             $createdBy = $request->input('createdby');
+            $displayMode = $request->input('displaymode', 'textwithimages');
             $page = $request->input('page', 1);
             $perPage = $request->input('per_page', 5);
             if (!is_array($tagIds)) {
                 return response()->json(['error' => 'Invalid tag ids, tagids must be in array'], 400);
             }
 
-            $questions = $this->moodleGetQuestionService->filterQuestions($tagIds, $categoryid, $searchTerm, $qtype, $status, $createdBy, $page, $perPage);
+            $questions = $this->moodleGetQuestionService->filterQuestions($tagIds, $categoryid, $searchTerm, $qtype, $status, $createdBy, $displayMode, $page, $perPage);
             return response()->json($questions);
 
         }catch (\Throwable $e) {

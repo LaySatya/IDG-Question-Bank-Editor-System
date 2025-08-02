@@ -95,7 +95,7 @@ class MoodleGetQuestionService extends MoodleBaseService
     }
 
     // Filter questions by category, qtext, qname, tags, status, qtype, user-who-created-questions from moodle
-    public function filterQuestions(?array $tagids, ?int $categoryid, ?string $searchterm, ?string $qtype, ?string $status, ?int $createdby, ?int $page, ?int $perPage){
+    public function filterQuestions(?array $tagids, ?int $categoryid, ?string $searchterm, ?string $qtype, ?string $status, ?int $createdby, ?string $displayMode ,?int $page, ?int $perPage){
         $params = array_merge($this->getBaseParams(), [
             'wsfunction' => 'local_idgqbank_filter_questions',
             'tagids' => $tagids,
@@ -104,6 +104,7 @@ class MoodleGetQuestionService extends MoodleBaseService
             'qtype' => $qtype,
             'status' => $status,
             'createdby' => $createdby,
+            'displaymode' => 'textwithimages',
             'page' => $page,
             'perpage'=> $perPage
         ]);

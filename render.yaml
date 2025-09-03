@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: idg-questionbank
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    autoDeploy: true
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_KEY
+        sync: true
+      - key: MOODLE_URL
+        sync: true
+      - key: MOODLE_TOKEN
+        sync: true
+      - key: MOODLE_SERVICE
+        sync: true

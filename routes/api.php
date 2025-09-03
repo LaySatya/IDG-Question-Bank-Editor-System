@@ -17,7 +17,7 @@ Route::post('/users', [MoodleUserController::class, 'login']);
 
 
 // Protected routes
-// Route::middleware(['moodle.token'])->group(function () {
+Route::middleware(['moodle.token'])->group(function () {
 
 
     // User routes
@@ -125,4 +125,4 @@ Route::post('/users', [MoodleUserController::class, 'login']);
         Route::delete('/manage_tags', 'deleteTag');
     });
 
-// });
+});
